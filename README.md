@@ -6,6 +6,9 @@ You can check the test-suite for a few usage examples.
 
 **See http://citysdk.ist.utl.pt/ for more information**
 
+Documentation
+=================
+http://citysdk.ist.utl.pt/jdoc/index.html
 
 Developed By
 =================
