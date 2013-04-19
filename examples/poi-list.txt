@@ -1,0 +1,411 @@
+{
+   "poi":[
+      {
+         "poi":{
+            "base":"http://polar-lowlands-9873.herokuapp.com/poi/",
+            "id":"1",
+            "lang":"EN",
+            "label":[
+               {
+               	  "lang":"PT",
+                  "term":"primary",
+                  "value":"Museu Calouste Gulbenkian"
+               }
+            ],
+            "description":[
+               {
+                  "lang":"PT",
+                  "value":"Museu Calouste Gulbenkian é um museu em Lisboa, Portugal, contendo uma colecção de antiga e alguma arte moderna."
+               },
+               {
+                  "lang":"EN",
+                  "value":"Museu Calouste Gulbenkian is a museum in Lisbon, Portugal, containing a collection of ancient, and some modern art."
+               },
+               {
+                  "type":"X-citysdk/price",
+                  "lang":"EN",
+                  "value":"0€ per person"
+               }
+            ],
+            "category":[
+               {
+                  "term":"category",
+                  "value":"Museum"
+               },
+               {
+                  "term":"category",
+                  "value":"Park"
+               },
+               {
+                  "term":"tag",
+                  "value":"culture"
+               },
+               {
+                  "term":"tag",
+                  "value":"nature"
+               }
+            ],
+            "location":{
+               "point":[
+                  {
+                     "term":"entrance",
+                     "Point":{
+                        "srsName":"http://www.opengis.net/def/crs/EPSG/0/4326",
+                        "posList":"38.738369 -9.154962"
+                     }
+                  }
+               ]
+            },
+            "time":[
+               {
+                  "term":"open",
+                  "type":"text/calendar",
+                  "value":"BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+               }
+            ],
+            "link":[
+               {
+                  "term":"related",
+                  "rel":"icon",
+                  "type":"image/jpeg",
+                  "href":"http://cf.vgtstatic.com/thumb/8/9/89439-v1-mini.jpg"
+               }
+            ]
+         }
+      },
+      {
+         "poi":{
+            "base":"http://polar-lowlands-9873.herokuapp.com/poi/",
+            "id":"2",
+            "lang":"EN",
+            "label":[
+               {
+               	  "lang":"PT",
+                  "term":"primary",
+                  "value":"Castelo de S. Jorge"
+               }
+            ],
+            "description":[
+               {
+                  "lang":"PT",
+                  "value":"O Castelo S. Jorge é um castelo Mouro ocupando a colina que supervisiona o histórico centro da cidade de Lisboa e Rio Tejo."
+               },
+               {
+                  "lang":"EN",
+                  "value":"The Castle of S. Jorge is a Moorish castle occupying a commanding hilltop overlooking the historic centre of the Portuguese city of Lisbon and Tagus River. "
+               },
+               {
+                  "type":"X-citysdk/price",
+                  "lang":"EN",
+                  "value":"0€ per person"
+               }
+            ],
+            "category":[
+               {
+                  "term":"category",
+                  "value":"Castle"
+				}
+            ],
+            "location":{
+               "point":[
+                  {
+                     "term":"entrance",
+                     "Point":{
+                        "srsName":"http://www.opengis.net/def/crs/EPSG/0/4326",
+                        "posList":"38.714347 -9.133716"
+                     }
+                  }
+               ]
+            },
+            "time":[
+               {
+                  "term":"open",
+                  "type":"text/calendar",
+                  "value":"BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+               }
+            ],
+            "link":[
+               {
+                  "term":"related",
+                  "rel":"icon",
+                  "type":"image/jpeg",
+                  "href":"http://cdn3.vtourist.com/13/1803194-My_first_impression_Castelo_de_Sao_Jorge_Lisbon.jpg"
+               }
+            ]
+         }
+      },
+      {
+         "poi":{
+            "base":"http://polar-lowlands-9873.herokuapp.com/poi/",
+            "id":"3",
+            "lang":"EN",
+            "label":[
+               {
+                  "lang":"PT",
+                  "term":"primary",
+                  "value":"Centro Cultural de Belem"
+               }
+            ],
+            "description":[
+               {
+                  "lang":"PT",
+                  "value":"O Centro Cultural de Belem, encontra-se na freguesia de Santa Maria de Belem e é o maior edifício cultural em Portugal."
+               },
+               {
+                  "lang":"EN",
+                  "value":"The Belem Cultural Centre, located in the civil parish of Santa Maria de Belem, is the largest building with cultural facilities in Portugal. "
+               },
+               {
+                  "type":"X-citysdk/price",
+                  "lang":"EN",
+                  "value":"0€ per person"
+               }
+            ],
+            "category":[
+               {
+                  "term":"category",
+                  "value":"Museum"
+               },
+               {
+                  "term":"category",
+                  "value":"Cultural Centre"
+               },
+               {
+                  "term":"tag",
+                  "value":"culture"
+               }
+            ],
+            "location":{
+               "point":[
+                  {
+                     "term":"entrance",
+                     "Point":{
+                        "srsName":"http://www.opengis.net/def/crs/EPSG/0/4326",
+                        "posList":"38.696229 -9.207315"
+                     }
+                  }
+               ]
+            },
+            "time":[
+               {
+                  "term":"open",
+                  "type":"text/calendar",
+                  "value":"BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+               }
+            ],
+            "link":[
+               {
+                  "term":"related",
+                  "rel":"icon",
+                  "type":"image/jpeg",
+                  "href":"http://assets.in-cdn.net/image/45_45/2007/09/26/l_1615_ccb2jpg_1.jpg"
+               }
+            ]
+         }
+      },
+      {
+	    "poi": {
+	        "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+	        "id": "4",
+	        "lang": "EN",
+	        "label": [
+	            {
+	            	"lang":"PT",
+	                "term": "primary",
+	                "value": "TMN ao Vivo"
+	            }
+	        ],
+	        "description": [
+	            {
+	                "lang": "PT",
+	                "value": "Uma sala de espectáculos completamente equipada para bandas e DJs."    
+	            },
+	            {
+	                "lang": "EN",
+	                "value": "A showroom fully equipped for bands and DJs"
+	            }
+	        ],
+	        "category": [
+	            {
+	                "term": "category",
+	                "value": "Music"
+	            },
+	            {
+	                "term": "category",
+	                "value": "Bar"
+	            },
+	            {
+	                "term": "tag",
+	                "value": "bands"
+	            },
+	            {
+	                "term": "tag",
+	                "value": "DJs"
+	            }
+	        ],
+	        "location": {
+	            "point": [
+	                {
+	                    "term": "entrance",
+	                    "Point": {
+	                        "srsName": "http://www.opengis.net/def/crs/EPSG/0/4326",
+	                        "posList": "38.706008 -9.148393"
+	                    }
+	                }
+	            ]
+	        },
+	        "time": [
+	            {
+	                "term": "open",
+	                "type": "text/calendar",
+	                "value": "BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+	            }
+	        ],
+	        "link": [
+	            {
+	                "term": "related",
+	                "rel": "icon",
+	                "type": "image/jpeg",
+	                "href": "http://profile.ak.fbcdn.net/hprofile-ak-ash4/203572_163460440376002_508797230_q.jpg"
+	            }
+	        ]
+	    }
+	},
+	{
+	    "poi": {
+	        "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+	        "id": "5",
+	        "lang": "EN",
+	        "label": [
+	            {
+	            	"lang":"PT",
+	                "term": "primary",
+	                "value": "Campo Pequeno"
+	            }
+	        ],
+	        "description": [
+	            {
+	                "lang": "PT",
+	                "value": "A Praça de Touros de Lisboa encontra-se localizada na praceta do Campo Pequeno ao pé da Avenida da Republica."    
+	            },
+	            {
+	                "lang": "EN",
+	                "value": "The Campo Pequeno Bullring is the bull ring of Lisbon, Portugal. It is located in the Campo Pequeno Square, by the Avenida da Republica."
+	            }
+	        ],
+	        "category": [
+	            {
+	                "term": "category",
+	                "value": "Music"
+	            },
+	            {
+	                "term": "category",
+	                "value": "WallMart"
+	            },
+	            {
+	                "term": "tag",
+	                "value": "stores"
+	            },
+	            {
+	                "term": "tag",
+	                "value": "music"
+	            }
+	        ],
+	        "location": {
+	            "point": [
+	                {
+	                    "term": "entrance",
+	                    "Point": {
+	                        "srsName": "http://www.opengis.net/def/crs/EPSG/0/4326",
+	                        "posList": "38.743038 -9.145195"
+	                    }
+	                }
+	            ]
+	        },
+	        "time": [
+	            {
+	                "term": "open",
+	                "type": "text/calendar",
+	                "value": "BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+	            }
+	        ],
+	        "link": [
+	            {
+	                "term": "related",
+	                "rel": "icon",
+	                "type": "image/jpeg",
+	                "href": "http://s1.evcdn.com/images/block/I0-001/001/540/292-8.jpeg_/campo-pequeno-92.jpeg"
+	            }
+	        ]
+	    }
+	 },
+	 {
+	    "poi": {
+	        "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+	        "id": "6",
+	        "lang": "EN",
+	        "label": [
+	            {
+	            	"lang":"PT",
+	                "term": "primary",
+	                "value": "Coliseu de Lisboa"
+	            }
+	        ],
+	        "description": [
+	            {
+	                "lang": "PT",
+	                "value": "Coliseu dos Recreios, ou Coliseu de Lisboa, é uma sala de concerto situada em Lisboa, na Rua das Portas de Santo Antao na Baixa Pombalina."    
+	            },
+	            {
+	                "lang": "EN",
+	                "value": "Coliseu dos Recreios, or Coliseu de Lisboa, is a concert hall in Lisbon, Portugal. It is situated in the Rua das Portas de Santo Antao in Pombaline Lower Town."
+	            }
+	        ],
+	        "category": [
+	            {
+	                "term": "category",
+	                "value": "Music"
+	            },
+	            {
+	                "term": "category",
+	                "value": "Coliseum"
+	            },
+	            {
+	                "term": "tag",
+	                "value": "shows"
+	            },
+	            {
+	                "term": "tag",
+	                "value": "music"
+	            }
+	        ],
+	        "location": {
+	            "point": [
+	                {
+	                    "term": "entrance",
+	                    "Point": {
+	                        "srsName": "http://www.opengis.net/def/crs/EPSG/0/4326",
+	                        "posList": "38.71716 -9.140711"
+	                    }
+	                }
+	            ]
+	        },
+	        "time": [
+	            {
+	                "term": "open",
+	                "type": "text/calendar",
+	                "value": "BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+	            }
+	        ],
+	        "link": [
+	            {
+	                "term": "related",
+	                "rel": "icon",
+	                "type": "image/jpeg",
+	                "href": "http://www.towardstheend.org/albums/Within%20Temptation/Live/2011/16%20Oct%202011%20Coliseum%20Porto%20/1/thumb_Within_Temptation_performing_live_at_Coliseu_dos_Recreios-3e1226de922ae4e60fe0d1a3da517fde.jpg"
+	            }
+	        ]
+	    }
+	}
+   ]
+}

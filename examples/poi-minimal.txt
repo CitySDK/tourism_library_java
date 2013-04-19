@@ -1,0 +1,72 @@
+{
+   "poi":{
+      "base":"http://127.0.0.1:8124/poi/",
+      "id":"1234",
+      "lang":"EN",
+      "label":[
+         {
+            "term":"primary",
+            "value":"Museu Calouste Gulbenkian"
+         }
+      ],
+      "description":[
+         {
+            "lang":"PT",
+            "value":"Descricao"
+         },
+         {
+            "lang":"EN",
+            "value":"Description"
+         },
+         {
+            "type":"X-citysdk/price",
+            "lang":"EN",
+            "value":"0Û per person"
+         }
+      ],
+      "category":[
+         {
+            "term":"category",
+            "value":"Museum"
+         },
+         {
+            "term":"category",
+            "value":"Park"
+         },
+         {
+            "term":"tag",
+            "value":"culture"
+         },
+         {
+            "term":"tag",
+            "value":"nature"
+         }
+      ],
+      "location":{
+         "point":[
+            {
+               "term":"entrance",
+               "Point":{
+                  "srsName":"http://www.opengis.net/def/crs/EPSG/0/4326",
+                  "posList":"38.738369 -9.154962"
+               }
+            }
+         ]
+      },
+      "time":[
+         {
+            "term":"open",
+            "type":"text/calendar",
+            "value":"BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+         }
+      ],
+      "link":[
+         {
+            "term":"related",
+            "rel":"icon",
+            "type":"image/jpeg",
+            "href":"http://link-to-multimedia.com/thumbnail.jpeg"
+         }
+      ]
+   }
+}

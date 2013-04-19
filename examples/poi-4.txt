@@ -1,0 +1,84 @@
+{
+    "poi": {
+        "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+        "id": "4",
+        "lang": "EN",
+        "label": [
+            {
+            	"lang":"PT",
+                "term": "primary",
+                "value": "TMN ao Vivo"
+            }
+        ],
+        "description": [
+            {
+                "lang": "PT",
+                "value": "Uma sala de espect‡culos completamente equipada para bandas e DJs."    
+            },
+            {
+                "lang": "EN",
+                "value": "A showroom fully equipped for bands and DJs"
+            }
+        ],
+        "category": [
+            {
+                "term": "category",
+                "value": "Music"
+            },
+            {
+                "term": "category",
+                "value": "Bar"
+            },
+            {
+                "term": "tag",
+                "value": "bands"
+            },
+            {
+                "term": "tag",
+                "value": "DJs"
+            }
+        ],
+        "location": {
+            "point": [
+                {
+                    "term": "entrance",
+                    "Point": {
+                        "srsName": "http://www.opengis.net/def/crs/EPSG/0/4326",
+                        "posList": "38.706008 -9.148393"
+                    }
+                }
+            ],
+            "address": {
+                "type": "text/vcard",
+                "value": "BEGIN\:VCARD\r\nVERSION\:4.0\r\nN\:Gump;Forrest;;;\r\nFN\:Forrest Gump\r\nORG\:Bubba Gump Shrimp Co.\r\nTITLE\:Shrimp Man PHOTO\:http\:\/\/www.example.com\/dir_photos\/my_photo.gif TEL;TYPE=\"work,voice\";VALUE=uri\:tel\:+1-111-555-1212 TEL;TYPE=\"home,voice\";VALUE=uri\:tel\:+1-404-555-1212\r\nADR;TYPE=work;LABEL=\"42 Plantation St.Baytown, LA 30314United States of America\:;;42 Plantation St.;Baytown;LA;30314;United States of America\r\nEMAIL\:forrestgump@example.com\r\nREV\:20080424T195243Z\r\nEND\:VCARD"
+            },
+            "relationship": [
+                {
+                    "term": "within",
+                    "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+                    "targetPOI": "0"
+                }
+            ]
+        },
+        "time": [
+            {
+                "term": "open",
+                "type": "text/calendar",
+                "value": "BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+            }
+        ],
+        "link": [
+            {
+                "term": "related",
+                "type": "image/jpeg",
+                "href": "http://www.tvi24.iol.pt/multimedia/oratvi/multimedia/imagem/id/13733925"
+            },
+            {
+                "term": "related",
+                "rel": "icon",
+                "type": "image/jpeg",
+                "href": "http://tmnaovivo.com/wp-content/uploads/2011/12/TMNAOVIVODESK.jpg"
+            }
+        ]
+    }
+}

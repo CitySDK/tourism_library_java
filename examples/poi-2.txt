@@ -1,0 +1,82 @@
+{
+   "poi":{
+      "base":"http://polar-lowlands-9873.herokuapp.com/poi/",
+      "id":"2",
+      "lang":"EN",
+      "label":[
+         {
+         	"lang":"PT",
+            "term":"primary",
+            "value":"Castelo de S. Jorge"
+         }
+      ],
+      "description":[
+         {
+            "lang":"PT",
+            "value":"O Castelo S. Jorge Ž um castelo Mouro ocupando a colina que supervisiona o hist—rico centro da cidade de Lisboa e Rio Tejo."  
+         },
+         {
+            "lang":"EN",
+            "value":"The Castle of S. Jorge is a Moorish castle occupying a commanding hilltop overlooking the historic centre of the Portuguese city of Lisbon and Tagus River. The strongly fortified citadel dates from medieval period of Portuguese history, and is one of the main tourist sites of Lisbon. Although the first fortification on this hilltop date to the 2nd century BCE, archaeological excavations have identified a human presence in the Tagus valley as far back as the 6th century BC. The first fortification was, presumably, erected in 48 BCE, when Lisbon was classified as a Roman municipality.
+The hill was used by indigenous Celtic tribes, then by Phoenicians, Greeks, and Carthaginians, as a defensible outpost, that was later expropriated by Roman, Suebic, Visigothic, and Moorish peoples. During the 10th century, the fortifications were rebuilt by Muslim forces, that included the walls or Cerca Moura (Moorish Encirclment)"
+         },
+         {
+            "type":"X-citysdk/price",
+            "lang":"EN",
+            "value":"0Û per person"
+         }
+      ],
+      "category":[
+        {
+            "term":"category",
+            "value":"Castle"
+		}
+      ],
+      "location":{
+         "point":[
+              {
+                 "term":"entrance",
+                 "Point":{
+                    "srsName":"http://www.opengis.net/def/crs/EPSG/0/4326",
+                    "posList":"38.714347 -9.133716"
+                 }
+              }
+       	 ],
+         "address":{
+            "type":"text/vcard",
+            "value":"BEGIN\:VCARD\r\nVERSION\:4.0\r\nN\:Gump;Forrest;;;\r\nFN\:Forrest Gump\r\nORG\:Bubba Gump Shrimp Co.\r\nTITLE\:Shrimp Man PHOTO\:http\:\/\/www.example.com\/dir_photos\/my_photo.gif TEL;TYPE=\"work,voice\";VALUE=uri\:tel\:+1-111-555-1212 TEL;TYPE=\"home,voice\";VALUE=uri\:tel\:+1-404-555-1212\r\nADR;TYPE=work;LABEL=\"42 Plantation St.Baytown, LA 30314United States of America\:;;42 Plantation St.;Baytown;LA;30314;United States of America\r\nEMAIL\:forrestgump@example.com\r\nREV\:20080424T195243Z\r\nEND\:VCARD"
+         },
+         "relationship":[
+            {
+               "term":"within",
+               "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+               "targetPOI":"0"
+            }
+         ]
+      },
+      "time":[
+         {
+            "term":"open",
+            "type":"text/calendar",
+            "value":"BEGIN\:VCALENDAR\r\nVERSION\:2.0\r\nPRODID\:-//hacksw/handcal//NONSGML v1.0//EN\r\nBEGIN\:VEVENT\r\nUID\:uid1@example.com\r\nDTSTAMP\:19970714T170000Z\r\nORGANIZER;CN=John Doe\:MAILTO\:john.doe@example.com\r\nDTSTART\:19970714T170000Z\r\nDTEND\:19970715T035959Z\r\nSUMMARY\:Bastille Day Party\r\nEND\:VEVENT\r\nEND\:VCALENDAR"
+         }
+      ],
+      "link":[
+         {
+            "term":"related",
+            "type":"image/jpeg",
+            "href":"http://www.bestourism.com/img/items/big/915/Castelo-de-Sao-Jorge_Castle-view_4693.jpg"
+         },
+         {
+            "term":"related",
+            "rel":"icon",
+            "type":"image/jpeg",
+            "href":"http://cdn3.vtourist.com/13/1803194-My_first_impression_Castelo_de_Sao_Jorge_Lisbon.jpg"
+         },
+         {
+            "term":"child",
+            "id":"0"
+         }
+      ]
+   }
+}

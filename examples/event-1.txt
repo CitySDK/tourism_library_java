@@ -1,0 +1,80 @@
+{
+            "event": {
+                "base": "http://polar-lowlands-9873.herokuapp.com/event/",
+                "id": "1",
+                "lang": "EN",
+                "label": [
+                    {
+                        "lang": "PT",
+                        "term": "primary",
+                        "value": "Awolnation"
+                    },
+                    {
+                        "lang": "EN",
+                        "term": "primary",
+                        "value": "Awolnation"
+                    }
+                ],
+                "description": [
+                    {
+                        "lang": "PT",
+                        "value": "Awolnation ao vivo na TMN ao Vivo"
+                    },
+                    {
+                        "lang": "EN",
+                        "value": "Awolnation live at TMN ao Vivo"
+                    },
+                    {
+                        "type": "X-citysdk/price",
+                        "lang": "EN",
+                        "value": "25Û per person"
+                    },
+                    {
+                        "type": "X-citysdk/price",
+                        "lang": "PT",
+                        "value": "25Û por person"
+                    }
+                ],
+                "category": [
+                    {
+                        "term": "category",
+                        "value": "Event"
+                    }
+                ],
+                "location": {
+                    "relationship": [
+                        {
+                            "term": "within",
+                            "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+                            "targetPOI": "4"
+                        }
+                    ]
+                },
+                "time": [
+                    {
+                        "term": "open",
+                        "scheme": "http://link-to-scheme.com",
+                        "type": "text/calendar",
+                        "value": "BEGIN\:VCALENDAR\r\nVERSION\:1.0\r\nBEGIN\:VEVENT\r\nDTSTART\:20130205T210000\r\nDTEND\:20130205T230000\r\nSUMMARY\:Awolnation\r\nLOCATION\:TMN ao Vivo Rua Cintura do Porto 65 1200-109\r\nDESCRIPTION\:\r\nPRIORITY\:3\r\nEND\:VEVENT\r\nEND\:VCALENDAR\r\n"
+                    }
+                ],
+                "link": [
+                    {
+                        "term": "related",
+                        "rel": "icon",
+                        "type": "image/jpeg",
+                        "href": "http://www1.sk-static.com/images/media/img/col6/20110322-001232-973681.jpg"
+                    },
+                    {
+                        "term": "self",
+                        "id": "1",
+                        "base": "http://link-to-alternative-ids.com/qrcode/"
+                    },
+                    {
+                        "term": "child",
+                        "id": "1",
+                        "base": "http://polar-lowlands-9873.herokuapp.com/poi/"
+                    }
+                ]
+            }
+        }

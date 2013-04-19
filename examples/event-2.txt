@@ -1,0 +1,80 @@
+{
+            "event": {
+                "base": "http://polar-lowlands-9873.herokuapp.com/event/",
+                "id": "2",
+                "lang": "EN",
+                "label": [
+                    {
+                        "lang": "PT",
+                        "term": "primary",
+                        "value": "Sigur Ros"
+                    },
+                    {
+                        "lang": "EN",
+                        "term": "primary",
+                        "value": "Sigur Ros"
+                    }
+                ],
+                "description": [
+                    {
+                        "lang": "PT",
+                        "value": "Sigur Ros ao vivo no Campo Pequeno"
+                    },
+                    {
+                        "lang": "EN",
+                        "value": "Sigur Ros live at Campo Pequeno"
+                    },
+                    {
+                        "type": "X-citysdk/price",
+                        "lang": "EN",
+                        "value": "20Û per person"
+                    },
+                    {
+                        "type": "X-citysdk/price",
+                        "lang": "PT",
+                        "value": "20Û per person"
+                    }
+                ],
+                "category": [
+                    {
+                        "term": "category",
+                        "value": "Event"
+                    }
+                ],
+                "location": {
+                    "relationship": [
+                        {
+                            "term": "within",
+                            "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+                            "targetPOI": "5"
+                        }
+                    ]
+                },
+                "time": [
+                    {
+                        "term": "open",
+                        "scheme": "http://link-to-scheme.com",
+                        "type": "text/calendar",
+                        "value": "BEGIN\:VCALENDAR\r\nVERSION\:1.0\r\nBEGIN\:VEVENT\r\nDTSTART\:20130214T210000\r\nDTEND\:20130214T230000\r\nSUMMARY\:Sigur Ros\r\nLOCATION\:Centro de Lazer Campo Pequeno, Praca do Campo Pequeno 1000-082\r\nDESCRIPTION\:\r\nPRIORITY\:3\r\nEND\:VEVENT\r\nEND\:VCALENDAR\r\n"
+                    }
+                ],
+                "link": [
+                    {
+                        "term": "related",
+                        "rel": "icon",
+                        "type": "image/jpeg",
+                        "href": "http://www1.sk-static.com/images/media/img/col6/20120930-091715-168615.jpg"
+                    },
+                    {
+                        "term": "self",
+                        "id": "2",
+                        "base": "http://link-to-alternative-ids.com/qrcode/"
+                    },
+                    {
+                        "term": "child",
+                        "base": "http://polar-lowlands-9873.herokuapp.com/poi/",
+                        "id": "5"
+                    }
+                ]
+            }
+        }
