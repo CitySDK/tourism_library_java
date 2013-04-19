@@ -1,15 +1,30 @@
+/**
+ * COPYRIGHT NOTICE: 
+ *
+ * This file is part of CitySDK WP5 Tourism Library.
+ *
+ * CitySDK WP5 Tourism Library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * CitySDK WP5 Tourism Library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with CitySDK WP5 Tourism Library. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Copyright 2013, IST
+ */
 package citysdk.tourism.client.tests;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,26 +37,26 @@ import citysdk.tourism.client.exceptions.UnknownErrorException;
 import citysdk.tourism.client.exceptions.VersionNotAvailableException;
 import citysdk.tourism.client.parser.DataReader;
 import citysdk.tourism.client.parser.Field;
-import citysdk.tourism.client.parser.JsonParser;
 import citysdk.tourism.client.parser.data.DataContent;
 import citysdk.tourism.client.parser.data.ImageContent;
 import citysdk.tourism.client.poi.lists.ListEvent;
 import citysdk.tourism.client.poi.lists.ListPointOfInterest;
-import citysdk.tourism.client.poi.lists.Resources;
 import citysdk.tourism.client.poi.single.Category;
 import citysdk.tourism.client.poi.single.Event;
-import citysdk.tourism.client.poi.single.Hypermedia;
-import citysdk.tourism.client.poi.single.HypermediaLink;
 import citysdk.tourism.client.poi.single.PointOfInterest;
 import citysdk.tourism.client.requests.Parameter;
 import citysdk.tourism.client.requests.ParameterList;
 import citysdk.tourism.client.requests.TourismClient;
 import citysdk.tourism.client.requests.TourismClientFactory;
-import citysdk.tourism.client.requests.uri.UriTemplate;
 import citysdk.tourism.client.terms.ParameterTerms;
-import citysdk.tourism.client.terms.ResourceTerms;
 import citysdk.tourism.client.terms.Term;
 
+/**
+ * Unit tests
+ * 
+ * @author Pedro Cruz
+ *
+ */
 public class CitySdkTests {
 	private TourismClient client;
 	private String homeUrl = "http://polar-lowlands-9873.herokuapp.com/?list=backend";
@@ -51,13 +66,21 @@ public class CitySdkTests {
 		client = TourismClientFactory.getInstance().getClient(homeUrl);
 		client.useVersion("1.0");
 	}
-	
+
 	@Test
 	public void testListEvent() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
+		List<Integer> show = new ArrayList<Integer>();
+		show.add(0);
+		show.add(19);
+		
+		List<String> category = new ArrayList<String>();
+		category.add("Music");
+		category.add("Live");
+		
 		ParameterList params = new ParameterList();
-		params.add(new Parameter(ParameterTerms.CATEGORY, "some-category"));
-		params.add(new Parameter(ParameterTerms.TAG, "some-tag"));
-		params.add(new Parameter(ParameterTerms.SHOW, "0,19"));
+		params.add(new Parameter(ParameterTerms.CATEGORY, category));
+		params.add(new Parameter(ParameterTerms.TAG, "rock"));
+		params.add(new Parameter(ParameterTerms.SHOW, show));
 		ListEvent eventList = client.getEvents(params);
 		List<Event> events = eventList.getEvents();
 		for(Event event : events) {
@@ -85,10 +108,18 @@ public class CitySdkTests {
 	
 	@Test
 	public void testPoiWithId() throws InvalidParameterException, IOException, UnknownErrorException, ServerErrorException, ResourceNotAllowedException, VersionNotAvailableException, InvalidValueException {
+		List<Integer> show = new ArrayList<Integer>();
+		show.add(0);
+		show.add(19);
+		
+		List<String> category = new ArrayList<String>();
+		category.add("Museum");
+		category.add("Garden");
+		
 		ParameterList params = new ParameterList();
-		params.add(new Parameter(ParameterTerms.CATEGORY, "some-category"));
-		params.add(new Parameter(ParameterTerms.TAG, "some-tag"));
-		params.add(new Parameter(ParameterTerms.SHOW, "0,19"));
+		params.add(new Parameter(ParameterTerms.CATEGORY, category));
+		params.add(new Parameter(ParameterTerms.TAG, "culture"));
+		params.add(new Parameter(ParameterTerms.SHOW, show));
 		ListPointOfInterest poiList = client.getPois(params);
 		List<PointOfInterest> pois = poiList.getPois();
 		for(PointOfInterest poi : pois) {
@@ -99,10 +130,19 @@ public class CitySdkTests {
 	
 	@Test
 	public void testAvailableLanguages() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
+		List<Integer> show = new ArrayList<Integer>();
+		show.add(0);
+		show.add(19);
+		
+		List<String> category = new ArrayList<String>();
+		category.add("Museum");
+		category.add("Garden");
+		
 		ParameterList params = new ParameterList();
-		params.add(new Parameter(ParameterTerms.CATEGORY, "some-category"));
-		params.add(new Parameter(ParameterTerms.TAG, "some-tag"));
-		params.add(new Parameter(ParameterTerms.SHOW, "0,19"));
+		params.add(new Parameter(ParameterTerms.CATEGORY, category));
+		params.add(new Parameter(ParameterTerms.TAG, "culture"));
+		params.add(new Parameter(ParameterTerms.SHOW, show));
+		
 		ListPointOfInterest poiList = client.getPois(params);
 		List<PointOfInterest> pois = poiList.getPois();
 		for(PointOfInterest poi : pois) {
@@ -122,10 +162,23 @@ public class CitySdkTests {
 	    
 	    DataContent content = null;
 	    
+	    List<Integer> show = new ArrayList<Integer>();
+		show.add(0);
+		show.add(19);
+		
+		List<String> category = new ArrayList<String>();
+		category.add("Music");
+		category.add("Live");
+		
+		List<String> tag = new ArrayList<String>();
+		tag.add("rock");
+		tag.add("indie");
+		
 		ParameterList params = new ParameterList();
-		params.add(new Parameter(ParameterTerms.CATEGORY, "some-category"));
-		params.add(new Parameter(ParameterTerms.TAG, "some-tag"));
-		params.add(new Parameter(ParameterTerms.SHOW, "0,19"));
+		params.add(new Parameter(ParameterTerms.CATEGORY, category));
+		params.add(new Parameter(ParameterTerms.TAG, tag));
+		params.add(new Parameter(ParameterTerms.SHOW, show));
+		
 		ListEvent eventList = client.getEvents(params);
 		List<Event> events = eventList.getEvents();
 		
@@ -149,7 +202,7 @@ public class CitySdkTests {
 	        List<ImageContent> imgUri = DataReader.getImagesUri(event);
 	        if(imgUri.size() > 0)
 	            image = imgUri.get(0).getContent();
-	                 
+	                
 	        System.out.println("LABEL: " + label);
 	        System.out.println("DESCRIPTION: " + description);
 	        if(imgContent != null) {
