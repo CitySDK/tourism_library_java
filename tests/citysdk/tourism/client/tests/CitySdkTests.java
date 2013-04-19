@@ -53,81 +53,6 @@ public class CitySdkTests {
 	}
 	
 	@Test
-	public void testUriTemplate() {
-		template("http://polar-lowlands-9873.herokuapp.com/");
-		template("http://polar-lowlands-9873.herokuapp.com/v1/poi/search{/category,tag:2,complete,minimal,coords*,code,show}");
-		template("http://polar-lowlands-9873.herokuapp.com/v1/poi/search{?category*,tag:6,complete,minimal,coords*,code,show}");
-
-		String template = "{base}{id}{?relation}/here";
-		UriTemplate uri = UriTemplate.fromTemplate(template)
-									 .set("base", "http://polar-lowlands-9873.herokuapp.com/v1/poi/")
-									 .set("id", "10")
-									 .set("relation", "child");
-		System.out.println(uri.build());
-	}
-	
-	private void template(String template) {
-		List<String> list = new ArrayList<String>();
-		list.add("29.000 -39.000");
-		list.add("19.000 -19.000");
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("cat", "category-1");
-		map.put("lol", "lol");
-		UriTemplate uri = UriTemplate.fromTemplate(template)
-									 .set("category", map)
-									 .set("coords", list)
-									 .set("tag", "ABCDEFGHIJK");
-		System.out.println(uri.build());
-	}
-	
-	public void testResources() throws UnknownErrorException {
-		String file = "home-queries.txt";
-		JsonParser parser = new JsonParser(readFromFile(file));
-		Resources resources = parser.parseJsonAsResources();
-		Set<String> versions = resources.getVersions();
-		for(String version : versions) {
-			System.out.println("\nVersion " + version);
-			Set<String> res = resources.getResources(version);
-			HypermediaLink hypermedia = resources.getHypermediaWithVersion(version);
-			for(String r : res) {
-				Hypermedia link = hypermedia.getLinks().get(r);
-				System.out.print("Resource " + r + " ");
-				System.out.println(link.getHref() + "\nTemplated? " + link.isTemplated());
-				for(ParameterTerms param : ParameterTerms.values()) {
-					if(!param.getTerm().isEmpty())
-						System.out.println("Has " + param.getTerm() + "? " + resources.hasResourceParameter(version, ResourceTerms.fromString(r), param));
-				}
-			}
-		}
-	}
-	
-	private static String readFromFile(String file) {
-		String DIR = "/Users/pedrocruz/Documents/workspace/citysdk-java-library/examples/";
-		BufferedReader br = null;
-		String s = "";
-		try {
-			String sCurrentLine;
-			br = new BufferedReader(new FileReader(DIR + file));
-			while ((sCurrentLine = br.readLine()) != null) {
-				s += sCurrentLine;  
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		
-		return s;
-	}
-
-	@Test
 	public void testListEvent() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, "some-category"));
@@ -204,22 +129,16 @@ public class CitySdkTests {
 		ListEvent eventList = client.getEvents(params);
 		List<Event> events = eventList.getEvents();
 		
-		// define the default language to be used, in case the wanted language
-	    // does not exist. The default language - if this method is not called - is en_GB.
 	    DataReader.setDefaultLocale(new Locale("en","GB"));
-	 
-	    // get the default locale
 	    Locale locale = new Locale("pt", "PT");
 		
 		for(Event event : events) {
 			content = DataReader.getLabel(event, Term.LABEL_TERM_PRIMARY, locale);
 	        label = content.getContent();
 	         
-	        // get a description in PT language
 	        content = DataReader.getDescription(event, locale);
 	        description = content.getContent();
 	         
-	        // get a thumbnail (URI or base-64)
 	        List<ImageContent> img = DataReader.getThumbnails(event);
 	        ImageContent imgContent = null;
 	        if(img.size() > 0) {
@@ -227,12 +146,10 @@ public class CitySdkTests {
 	            thumbnail = imgContent.getContent();
 	        }
 	         
-	        // get an image (always a URI)
 	        List<ImageContent> imgUri = DataReader.getImagesUri(event);
 	        if(imgUri.size() > 0)
 	            image = imgUri.get(0).getContent();
 	                 
-	        // print the values
 	        System.out.println("LABEL: " + label);
 	        System.out.println("DESCRIPTION: " + description);
 	        if(imgContent != null) {
