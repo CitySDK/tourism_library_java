@@ -8,7 +8,7 @@ You can check the test-suite for a few usage examples.
 
 Documentation
 =================
-http://citysdk.ist.utl.pt/jdoc/index.html
+Documentation is available here: http://citysdk.ist.utl.pt/jdoc/index.html
 
 Developed By
 =================
