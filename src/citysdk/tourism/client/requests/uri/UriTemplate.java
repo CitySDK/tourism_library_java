@@ -45,6 +45,7 @@ public class UriTemplate {
 
 	private String template;
 	private Map<String, Object> values;
+	private static UriTemplate uriTemplate = null;
 
 	private UriTemplate() {
 	}
@@ -62,7 +63,12 @@ public class UriTemplate {
 	 * @return {@link UriTemplate}
 	 */
 	public static UriTemplate fromTemplate(String template) {
-		return new UriTemplate(template);
+		if(uriTemplate == null)
+			uriTemplate = new UriTemplate(template);
+		else
+			uriTemplate.template = template;
+		
+		return uriTemplate;
 	}
 
 	/**
@@ -91,7 +97,7 @@ public class UriTemplate {
 	 * @return <code>true</code> if the templated area contains the name,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean hasName(String name) {
+	public boolean hasParameter(String name) {
 		Matcher templateMatcher = TEMPLATE_REGEX.matcher(template);
 		while (templateMatcher.find()) {
 			String template = templateMatcher.group();
@@ -108,7 +114,7 @@ public class UriTemplate {
 	}
 
 	/**
-	 * Builds the desired URI
+	 * Builds the desired URI. This method resets previously set values.
 	 * 
 	 * @return a String containing the expanded URI Template into a URI
 	 */
@@ -144,6 +150,7 @@ public class UriTemplate {
 			uri = uri.replace(template, parameters);
 		}
 
+		values.clear();
 		return uri.replace(" ", "%20");
 	}
 

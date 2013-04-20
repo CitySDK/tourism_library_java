@@ -192,12 +192,11 @@ public class TourismClient implements Cloneable {
 	 *            the parameters that should be followed.
 	 * @return a {@link citysdk.tourism.client.poi.lists.ListPointOfInterest}.
 	 * @throws InvalidParameterException
-	 *             thrown if the given parameterList contains invalid POI terms.
+	 *             thrown if the given parameterList contains invalid terms.
 	 * @throws IOException
 	 *             thrown in case of socket errors.
 	 * @throws ResourceNotAllowedException
-	 *             thrown if the server does not support the a term found in the
-	 *             parameterList.
+	 *             thrown if the server does not support POIs listing
 	 * @throws UnknownErrorException
 	 *             thrown in case of unforeseen errors.
 	 * @throws ServerErrorException
@@ -224,13 +223,11 @@ public class TourismClient implements Cloneable {
 	 *            the parameters that should be followed.
 	 * @return a {@link citysdk.tourism.client.poi.lists.ListEvent}.
 	 * @throws InvalidParameterException
-	 *             thrown if the given parameterList contains invalid Event
-	 *             terms.
+	 *             thrown if the given parameterList contains invalid terms.
 	 * @throws IOException
 	 *             thrown in case of socket errors.
 	 * @throws ResourceNotAllowedException
-	 *             thrown if the server does not support the a term found in the
-	 *             parameterList.
+	 *             thrown if the server does not support events listing
 	 * @throws UnknownErrorException
 	 *             thrown in case of unforeseen errors.
 	 * @throws ServerErrorException
@@ -258,13 +255,11 @@ public class TourismClient implements Cloneable {
 	 *            the parameters that should be followed.
 	 * @return a {@link citysdk.tourism.client.poi.lists.ListRoute}.
 	 * @throws InvalidParameterException
-	 *             thrown if the given parameterList contains invalid Route
-	 *             terms.
+	 *             thrown if the given parameterList contains invalid terms.
 	 * @throws IOException
 	 *             thrown in case of socket errors.
 	 * @throws ResourceNotAllowedException
-	 *             thrown if the server does not support the a term found in the
-	 *             parameterList.
+	 *             thrown if the server does not support routes listing
 	 * @throws UnknownErrorException
 	 *             thrown in case of unforeseen errors.
 	 * @throws ServerErrorException
@@ -281,6 +276,47 @@ public class TourismClient implements Cloneable {
 				parameterList);
 		parser.setJson(Request.getResponse(url));
 		return parser.parseJsonAsListOfRoutes();
+	}
+
+	/**
+	 * Returns a generic object following the desired parameters.
+	 * 
+	 * @param parameterList
+	 *            the parameters that should be followed.
+	 * @return a description of a {@link citysdk.tourism.client.poi.single.POI}.
+	 * @throws IOException
+	 *             thrown in case of socket errors.
+	 * @throws UnknownErrorException
+	 *             thrown in case of unforeseen errors.
+	 * @throws ServerErrorException
+	 *             thrown if the server returns a code different from HTTP 200
+	 *             OK.
+	 * @throws VersionNotAvailableException
+	 *             thrown if a previously set version is not available
+	 * @throws InvalidParameterException
+	 *             thrown if the given parameterList contains invalid terms.
+	 */
+	public POI getGeneric(ParameterList parameterList) throws IOException,
+			UnknownErrorException, ServerErrorException,
+			VersionNotAvailableException, InvalidParameterException {
+		POI poi = null;
+		try {
+			if ((poi = getPois(parameterList)) != null) {
+				return poi;
+			}
+
+			if ((poi = getEvents(parameterList)) != null) {
+				return poi;
+			}
+			
+			if ((poi = getRoutes(parameterList)) != null) {
+				return poi;
+			}
+		} catch (ResourceNotAllowedException e) {
+			e.printStackTrace();
+		}
+
+		return poi;
 	}
 
 	/**
@@ -318,8 +354,8 @@ public class TourismClient implements Cloneable {
 		try {
 			ParameterList list = new ParameterList();
 			list.add(new Parameter(ParameterTerms.LIST, term.getTerm()));
-			String url = buildQueryUrl(ResourceTerms.FIND_CATEGORIES, list,
-					resources.getHypermediaWithVersion(version));
+			String url = validateAndBuildUrl(ResourceTerms.FIND_CATEGORIES,
+					list);
 			parser.setJson(Request.getResponse(url));
 			return parser.parseJsonAsCategory();
 		} catch (InvalidParameterException e) {
@@ -366,8 +402,7 @@ public class TourismClient implements Cloneable {
 		try {
 			ParameterList list = new ParameterList();
 			list.add(new Parameter(ParameterTerms.LIST, term.getTerm()));
-			String url = buildQueryUrl(ResourceTerms.FIND_TAGS, list,
-					resources.getHypermediaWithVersion(version));
+			String url = validateAndBuildUrl(ResourceTerms.FIND_TAGS, list);
 			parser.setJson(Request.getResponse(url));
 			return parser.parseJsonAsTags();
 		} catch (InvalidParameterException e) {
@@ -452,152 +487,6 @@ public class TourismClient implements Cloneable {
 	}
 
 	/**
-	 * Returns the description of a POI using a given link. Useful for, e.g.: QR
-	 * code searching.
-	 * 
-	 * @param poiLink
-	 *            the link URL of the POI.
-	 * @return a {@link citysdk.tourism.client.poi.single.PointOfInterest}
-	 *         containing the description of a POI.
-	 * @throws IOException
-	 *             thrown in case of socket errors.
-	 * @throws UnknownErrorException
-	 *             thrown in case of unforeseen errors.
-	 * @throws ServerErrorException
-	 *             thrown if the server returns a code different from HTTP 200
-	 *             OK.
-	 * @throws VersionNotAvailableException
-	 *             thrown if a previously set version is not available
-	 */
-	public PointOfInterest getPoiByLink(String poiLink) throws IOException,
-			UnknownErrorException, ServerErrorException,
-			VersionNotAvailableException {
-		verifyVersion();
-		ParameterList list = new ParameterList();
-		try {
-			list.add(new Parameter(ParameterTerms.CODE, poiLink));
-		} catch (InvalidParameterException e) {
-			e.printStackTrace();
-		} catch (InvalidValueException e) {
-			e.printStackTrace();
-		}
-
-		String url = buildQueryUrl(ResourceTerms.FIND_POI, list,
-				resources.getHypermediaWithVersion(version));
-		parser.setJson(Request.getResponse(url));
-		return parser.parseJsonAsPointOfInterest();
-	}
-
-	/**
-	 * Returns the description of a Event using a given link. Useful for, e.g.:
-	 * QR code searching.
-	 * 
-	 * @param eventLink
-	 *            the link URL of the Event.
-	 * @return a {@link citysdk.tourism.client.poi.single.Event} containing the
-	 *         description of a Event.
-	 * @throws IOException
-	 *             thrown in case of socket errors.
-	 * @throws UnknownErrorException
-	 *             thrown in case of unforeseen errors.
-	 * @throws ServerErrorException
-	 *             thrown if the server returns a code different from HTTP 200
-	 *             OK.
-	 * @throws VersionNotAvailableException
-	 *             thrown if a previously set version is not available
-	 */
-	public Event getEventByLink(String eventLink) throws IOException,
-			UnknownErrorException, ServerErrorException,
-			VersionNotAvailableException {
-		verifyVersion();
-		ParameterList list = new ParameterList();
-		try {
-			list.add(new Parameter(ParameterTerms.CODE, eventLink));
-		} catch (InvalidParameterException e) {
-			e.printStackTrace();
-		} catch (InvalidValueException e) {
-			e.printStackTrace();
-		}
-
-		String url = buildQueryUrl(ResourceTerms.FIND_EVENT, list,
-				resources.getHypermediaWithVersion(version));
-		parser.setJson(Request.getResponse(url));
-		return parser.parseJsonAsEvent();
-	}
-
-	/**
-	 * Returns the description of a Route using a given link. Useful for, e.g.:
-	 * QR code searching.
-	 * 
-	 * @param routeLink
-	 *            the link URL of the Route.
-	 * @return a {@link citysdk.tourism.client.poi.single.Route} containing the
-	 *         description of a Route.
-	 * @throws IOException
-	 *             thrown in case of socket errors.
-	 * @throws UnknownErrorException
-	 *             thrown in case of unforeseen errors.
-	 * @throws ServerErrorException
-	 *             thrown if the server returns a code different from HTTP 200
-	 *             OK.
-	 * @throws VersionNotAvailableException
-	 *             thrown if a previously set version is not available
-	 */
-	public Route getRouteByLink(String routeLink) throws IOException,
-			UnknownErrorException, ServerErrorException,
-			VersionNotAvailableException {
-		verifyVersion();
-		ParameterList list = new ParameterList();
-		try {
-			list.add(new Parameter(ParameterTerms.CODE, routeLink));
-		} catch (InvalidParameterException e) {
-			e.printStackTrace();
-		} catch (InvalidValueException e) {
-			e.printStackTrace();
-		}
-
-		String url = buildQueryUrl(ResourceTerms.FIND_ROUTE, list,
-				resources.getHypermediaWithVersion(version));
-		parser.setJson(Request.getResponse(url));
-		return parser.parseJsonAsRoute();
-	}
-
-	/**
-	 * Returns the description of a W3C object (POI, Event or Route) using a
-	 * given link. Useful for, e.g.: QR code searching and its result is
-	 * unknown.
-	 * 
-	 * @param link
-	 *            the link URL of the W3C.
-	 * @return a description of a {@link citysdk.tourism.client.poi.single.POI}.
-	 * @throws IOException
-	 *             thrown in case of socket errors.
-	 * @throws UnknownErrorException
-	 *             thrown in case of unforeseen errors.
-	 * @throws ServerErrorException
-	 *             thrown if the server returns a code different from HTTP 200
-	 *             OK.
-	 * @throws VersionNotAvailableException
-	 *             thrown if a previously set version is not available
-	 */
-	public POI getW3CByLink(String link) throws IOException,
-			UnknownErrorException, ServerErrorException,
-			VersionNotAvailableException {
-		verifyVersion();
-		POI poi = null;
-		if ((poi = getPoiByLink(link)) != null)
-			return poi;
-
-		if ((poi = getEventByLink(link)) != null)
-			return poi;
-
-		if ((poi = getRouteByLink(link)) != null)
-			return poi;
-
-		return poi;
-	}
-
-	/**
 	 * Returns a list of Points of Interest with the given relation with the POI
 	 * identified by base and id. The relation should be either:
 	 * <ul>
@@ -623,11 +512,13 @@ public class TourismClient implements Cloneable {
 	 *             thrown if a previously set version is not available
 	 * @throws InvalidValueException
 	 *             thrown if the relation is not one of the presented values
+	 * @throws ResourceNotAllowedException
+	 *             thrown if the server does not support POIs relationships
 	 */
-	public ListPointOfInterest getPointOfInterest(String base, String id,
+	public ListPointOfInterest getPoiRelation(String base, String id,
 			Term relation) throws IOException, ServerErrorException,
 			UnknownErrorException, VersionNotAvailableException,
-			InvalidValueException {
+			InvalidValueException, ResourceNotAllowedException {
 		verifyVersion();
 		validateRelation(relation);
 		ParameterList list = new ParameterList();
@@ -635,8 +526,8 @@ public class TourismClient implements Cloneable {
 			list.add(new Parameter(ParameterTerms.BASE, base));
 			list.add(new Parameter(ParameterTerms.ID, base));
 			list.add(new Parameter(ParameterTerms.RELATION, relation.getTerm()));
-			String url = buildQueryUrl(ResourceTerms.FIND_EVENT_RELATION, list,
-					resources.getHypermediaWithVersion(id));
+			String url = validateAndBuildUrl(ResourceTerms.FIND_EVENT_RELATION,
+					list);
 			parser.setJson(Request.getResponse(url));
 			return parser.parseJsonAsListOfPois();
 		} catch (InvalidParameterException e) {
@@ -674,11 +565,14 @@ public class TourismClient implements Cloneable {
 	 *             thrown if a previously set version is not available
 	 * @throws InvalidValueException
 	 *             thrown if the relation is not one of the presented values
+	 * @throws ResourceNotAllowedException
+	 *             thrown if the server does not support event relations
 	 */
 	public ListEvent getEventRelation(String base, String id, Term relation)
 			throws InvalidParameterTermException, IOException,
 			ServerErrorException, VersionNotAvailableException,
-			UnknownErrorException, InvalidValueException {
+			UnknownErrorException, InvalidValueException,
+			ResourceNotAllowedException {
 		verifyVersion();
 		validateRelation(relation);
 		ParameterList list = new ParameterList();
@@ -686,8 +580,8 @@ public class TourismClient implements Cloneable {
 			list.add(new Parameter(ParameterTerms.BASE, base));
 			list.add(new Parameter(ParameterTerms.ID, base));
 			list.add(new Parameter(ParameterTerms.RELATION, relation.getTerm()));
-			String url = buildQueryUrl(ResourceTerms.FIND_EVENT_RELATION, list,
-					resources.getHypermediaWithVersion(id));
+			String url = validateAndBuildUrl(ResourceTerms.FIND_EVENT_RELATION,
+					list);
 			parser.setJson(Request.getResponse(url));
 			return parser.parseJsonAsListOfEvents();
 		} catch (InvalidParameterException e) {
@@ -793,7 +687,8 @@ public class TourismClient implements Cloneable {
 		if (media.isTemplated()) {
 			for (int i = 0; i < parameterList.size(); i++) {
 				Parameter p = parameterList.get(i);
-				if (!media.getHref().contains(p.getTerm())) {
+				if (!UriTemplate.fromTemplate(media.getHref()).hasParameter(
+						p.getTerm())) {
 					throw new InvalidParameterException(p.getTerm()
 							+ " is not a valid parameter");
 				}
@@ -826,7 +721,6 @@ public class TourismClient implements Cloneable {
 			url = media.getHref();
 		}
 
-		System.out.println("uri: " + url);
 		return url;
 	}
 }

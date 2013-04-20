@@ -117,7 +117,7 @@ public class Resources implements Deserializable {
 			Hypermedia hypermedia;
 			if ((hypermedia = links.get(resource.getTerm())) != null
 					&& hypermedia.isTemplated()) {
-				return UriTemplate.fromTemplate(hypermedia.getHref()).hasName(
+				return UriTemplate.fromTemplate(hypermedia.getHref()).hasParameter(
 						parameter.getTerm());
 			}
 		}

@@ -80,7 +80,7 @@ public enum ParameterTerms {
 	 */
 	COORDS("coords", SEARCH_PARAMETERS),
 	/**
-	 * The search parameter using route
+	 * The search parameter using code
 	 */
 	CODE("code", SEARCH_PARAMETERS),
 	/**
