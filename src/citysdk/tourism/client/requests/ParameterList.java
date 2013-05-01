@@ -23,6 +23,8 @@ package citysdk.tourism.client.requests;
 import java.util.ArrayList;
 import java.util.List;
 
+import citysdk.tourism.client.terms.ParameterTerms;
+
 /**
  * A list of {@link Parameter} used for the {@link TourismClient} stub when performing HTTP requests.
  * 
@@ -56,6 +58,20 @@ public class ParameterList {
 	public Parameter get(int i) {
 		if(i < parameters.size())
 			return parameters.get(i);
+		
+		return null;
+	}
+	
+	/**
+	 * Gets the {@link Parameter} with the given term.
+	 * @param term the term of the {@link Parameter}.
+	 * @return {@link Parameter} with the given term or null.
+	 */
+	public Parameter getWithTerm(ParameterTerms term) {
+		for(Parameter parameter : parameters) {
+			if(parameter.getParameterTerm().equalsTerm(term.getTerm()))
+				return parameter;
+		}
 		
 		return null;
 	}

@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import citysdk.tourism.client.parser.data.DataContent;
 import citysdk.tourism.client.parser.data.GeometryContent;
 import citysdk.tourism.client.parser.data.ImageContent;
 import citysdk.tourism.client.parser.data.LineContent;
@@ -58,11 +57,11 @@ import citysdk.tourism.client.terms.Term;
  * 
  */
 public class DataReader {
-	private static final String PRICE_TAG = "X-citysdk/price";
-	private static final String WAITING_TAG = "X-citysdk/waiting-time";
-	private static final String OCCUPATION_TAG = "X-citysdk/occupation";
-	private static final String CALENDAR_TAG = "text/calendar";
-	private static final String IMAGE_TAG = "image/";
+	private static final String PRICE_TERM = "X-citysdk/price";
+	private static final String WAITING_TERM = "X-citysdk/waiting-time";
+	private static final String OCCUPATION_TERM = "X-citysdk/occupation";
+	private static final String CALENDAR_TERM = "text/calendar";
+	private static final String IMAGE_TERM = "image/";
 	private static Locale defaultLang = new Locale("en", "GB");
 
 	/**
@@ -174,15 +173,15 @@ public class DataReader {
 	 *            the term used.
 	 * @param lang
 	 *            the wanted language.
-	 * @return a {@link citysdk.tourism.client.parser.data.DataContent}
+	 * @return a {@link String}
 	 *         containing the following: the value of the label in the given
 	 *         language. If such language is not found it will return in default
 	 *         language and if the default language is not present it will
 	 *         return a DataContent containing null.
 	 */
-	public static DataContent getLabel(POI poi, Term term, Locale lang) {
+	public static String getLabel(POI poi, Term term, Locale lang) {
 		if (poi == null)
-			return new DataContent(null);
+			return null;
 
 		Locale labelLang;
 		Locale poiLang = parseLocale(poi.getLang());
@@ -201,11 +200,11 @@ public class DataReader {
 				defaultValue = label.getValue();
 			} else if (label.getTerm().equals(term.getTerm())
 					&& labelLang.getLanguage().equals(lang.getLanguage())) {
-				return new DataContent(label.getValue());
+				return label.getValue();
 			}
 		}
 
-		return new DataContent(defaultValue);
+		return defaultValue;
 	}
 
 	/**
@@ -215,14 +214,14 @@ public class DataReader {
 	 *            the object to get the data.
 	 * @param lang
 	 *            the wanted language.
-	 * @return a {@link citysdk.tourism.client.parser.data.DataContent}
+	 * @return a {@link String}
 	 *         containing the following: the value of the description in the
 	 *         desired language or in the default language if none found or
 	 *         null.
 	 */
-	public static DataContent getDescription(POI poi, Locale lang) {
+	public static String getDescription(POI poi, Locale lang) {
 		if (poi == null)
-			return new DataContent(null);
+			return null;
 
 		Locale descriptionLang;
 		Locale poiLang = parseLocale(poi.getLang());
@@ -238,11 +237,11 @@ public class DataReader {
 			if (descriptionLang.getLanguage().equals(defaultLang.getLanguage())) {
 				defaultValue = description.getValue();
 			} else if (descriptionLang.getLanguage().equals(lang.getLanguage())) {
-				return new DataContent(description.getValue());
+				return description.getValue();
 			}
 		}
 
-		return new DataContent(defaultValue);
+		return defaultValue;
 	}
 
 	/**
@@ -252,13 +251,13 @@ public class DataReader {
 	 *            the object to get the data.
 	 * @param lang
 	 *            the wanted language.
-	 * @return a {@link citysdk.tourism.client.parser.data.DataContent}
+	 * @return a {@link String}
 	 *         containing the following: the value of the price in the desired
 	 *         language or in the default language if it was not found or null
 	 *         if the default language is not present.
 	 */
-	public static DataContent getPrice(POI poi, Locale lang) {
-		return getValueWithTag(poi, lang, PRICE_TAG);
+	public static String getPrice(POI poi, Locale lang) {
+		return getValueWithTerm(poi, lang, PRICE_TERM);
 	}
 
 	/**
@@ -266,11 +265,11 @@ public class DataReader {
 	 * 
 	 * @param poi
 	 *            the object to get the data.
-	 * @return a {@link citysdk.tourism.client.parser.data.DataContent}
+	 * @return a {@link String}
 	 *         containing the waiting time (in seconds) or null.
 	 */
-	public static DataContent getWaitingTime(POI poi) {
-		return getValueWithTag(poi, null, WAITING_TAG);
+	public static String getWaitingTime(POI poi) {
+		return getValueWithTerm(poi, null, WAITING_TERM);
 	}
 
 	/**
@@ -278,16 +277,16 @@ public class DataReader {
 	 * 
 	 * @param poi
 	 *            the object to get the data.
-	 * @return a {@link citysdk.tourism.client.parser.data.DataContent}
+	 * @return a {@link String}
 	 *         containing the occupation value (0 to 100) or null.
 	 */
-	public static DataContent getOccupation(POI poi) {
-		return getValueWithTag(poi, null, OCCUPATION_TAG);
+	public static String getOccupation(POI poi) {
+		return getValueWithTerm(poi, null, OCCUPATION_TERM);
 	}
 
-	private static DataContent getValueWithTag(POI poi, Locale lang, String tag) {
+	private static String getValueWithTerm(POI poi, Locale lang, String tag) {
 		if (poi == null)
-			return new DataContent(null);
+			return null;
 
 		Locale descriptionLang;
 		Locale poiLang = parseLocale(poi.getLang());
@@ -312,13 +311,13 @@ public class DataReader {
 				if (lang != null
 						&& descriptionLang.getLanguage().equals(
 								lang.getLanguage()))
-					return new DataContent(description.getValue());
+					return new String(description.getValue());
 				else if (lang == null)
-					return new DataContent(description.getValue());
+					return new String(description.getValue());
 			}
 		}
 
-		return new DataContent(defaultValue);
+		return new String(defaultValue);
 	}
 
 	/**
@@ -402,8 +401,8 @@ public class DataReader {
 			for (Point p : points) {
 				if (p.getTerm().equals(term.getTerm())) {
 					String data[] = p.getPoint().getPosList().split(" ");
-					point = new PointContent(new DataContent(data[0]),
-							new DataContent(data[1]));
+					point = new PointContent(new String(data[0]),
+							new String(data[1]));
 					list.add(point);
 				}
 			}
@@ -438,10 +437,10 @@ public class DataReader {
 					String data[] = l.getLineString().getPosList().split(",");
 					String point1[] = data[0].split(" ");
 					String point2[] = data[1].split(" ");
-					line = new LineContent(new LocationContent(new DataContent(
-							point1[0]), new DataContent(point1[1])),
-							new LocationContent(new DataContent(point2[2]),
-									new DataContent(point2[3])));
+					line = new LineContent(new LocationContent(new String(
+							point1[0]), new String(point1[1])),
+							new LocationContent(new String(point2[2]),
+									new String(point2[3])));
 					list.add(line);
 				}
 			}
@@ -480,7 +479,7 @@ public class DataReader {
 					for (int i = 0; i < data.length; i++) {
 						String posList[] = data[i].split(" ");
 						polygon.addLocation(new LocationContent(
-								new DataContent(posList[0]), new DataContent(
+								new String(posList[0]), new String(
 										posList[1])));
 					}
 					list.add(polygon);
@@ -524,7 +523,7 @@ public class DataReader {
 
 		List<POITermType> list = poi.getTime();
 		for (POITermType type : list) {
-			if (type.getType().equals(CALENDAR_TAG)
+			if (type.getType().equals(CALENDAR_TERM)
 					&& type.getTerm().equals(term.getTerm())) {
 				return type.getValue();
 			}
@@ -550,7 +549,7 @@ public class DataReader {
 		List<POITermType> links = poi.getLink();
 		for (POITermType link : links) {
 			if (link.getTerm().equals(Term.LINK_TERM_RELATED.getTerm())
-					&& link.getType().contains(IMAGE_TAG)) {
+					&& link.getType().contains(IMAGE_TERM)) {
 				ImageContent content = new ImageContent(link.getHref());
 				content.isImgUri(true);
 				images.add(content);
@@ -567,11 +566,11 @@ public class DataReader {
 	 *            the object to get the data.
 	 * @param term
 	 *            the term used.
-	 * @return a {@link citysdk.tourism.client.parser.data.DataContent}
+	 * @return a {@link String}
 	 *         containing the relationship base with the given term or null if
 	 *         none was found.
 	 */
-	public static DataContent getRelationshipBase(POI poi, Term term) {
+	public static String getRelationshipBase(POI poi, Term term) {
 		if (poi == null)
 			return null;
 
@@ -579,11 +578,11 @@ public class DataReader {
 			List<Relationship> list = poi.getLocation().getRelationship();
 			for (Relationship relation : list) {
 				if (relation.getTerm().equals(term.getTerm()))
-					return new DataContent(relation.getBase());
+					return new String(relation.getBase());
 			}
 		}
 
-		return new DataContent(null);
+		return null;
 	}
 
 	/**
@@ -593,27 +592,27 @@ public class DataReader {
 	 *            the object to get the data.
 	 * @param term
 	 *            the term used.
-	 * @return a {@link citysdk.tourism.client.parser.data.DataContent}
+	 * @return a {@link String}
 	 *         containing the relationship id with the given term or null if
 	 *         none was found.
 	 */
-	public static DataContent getRelationshipId(POI poi, Term term) {
+	public static String getRelationshipId(POI poi, Term term) {
 		if (poi == null)
-			return new DataContent(null);
+			return null;
 
 		if (poi.getLocation().hasRelationships()) {
 			List<Relationship> list = poi.getLocation().getRelationship();
 			for (Relationship relation : list) {
 				if (relation.getTerm().equals(term.getTerm())) {
 					if (relation.hasTargetPOI())
-						return new DataContent(relation.getTargetPOI());
+						return new String(relation.getTargetPOI());
 					else
-						return new DataContent(relation.getTargetEvent());
+						return new String(relation.getTargetEvent());
 				}
 			}
 		}
 
-		return new DataContent(null);
+		return null;
 	}
 
 	/**
@@ -623,20 +622,20 @@ public class DataReader {
 	 *            the object to get the data.
 	 * @param term
 	 *            the term used
-	 * @return a {@link citysdk.tourism.client.parser.data.DataContent}
+	 * @return a {@link String}
 	 *         containing a link or null if none found.
 	 */
-	public static DataContent getLink(POI poi, Term term) {
+	public static String getLink(POI poi, Term term) {
 		if (poi == null)
-			return new DataContent(null);
+			return null;
 
 		List<POITermType> links = poi.getLink();
 		for (POITermType link : links) {
 			if (link.getTerm().equals(term.getTerm())) {
-				return new DataContent(link.getHref());
+				return new String(link.getHref());
 			}
 		}
-		return new DataContent(null);
+		return null;
 	}
 
 	/**
@@ -649,8 +648,8 @@ public class DataReader {
 	 * @return a list of tags in the given language, or an empty list if none
 	 *         was found.
 	 */
-	public static List<DataContent> getTags(ListTag list, Locale lang) {
-		List<DataContent> tagList = new ArrayList<DataContent>();
+	public static List<String> getTags(ListTag list, Locale lang) {
+		List<String> tagList = new ArrayList<String>();
 		if (list == null)
 			return tagList;
 
@@ -660,7 +659,7 @@ public class DataReader {
 			for (Tag t : tagValues) {
 				if (parseLocale(t.getLang()).getLanguage().equals(
 						lang.getLanguage()))
-					tagList.add(new DataContent(t.getValue()));
+					tagList.add(new String(t.getValue()));
 			}
 		}
 

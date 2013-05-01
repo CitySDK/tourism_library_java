@@ -29,7 +29,7 @@ package citysdk.tourism.client.parser.data;
 public class PointContent implements GeometryContent {
 	private LocationContent location;
 	
-	public PointContent(DataContent latitude, DataContent longitude) {
+	public PointContent(String latitude, String longitude) {
 		location = new LocationContent(latitude, longitude);
 	}
 

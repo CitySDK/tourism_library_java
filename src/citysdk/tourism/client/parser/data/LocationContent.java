@@ -27,19 +27,19 @@ package citysdk.tourism.client.parser.data;
  *
  */
 public class LocationContent {
-	private DataContent latitude;
-	private DataContent longitude;
+	private String latitude;
+	private String longitude;
 	
-	public LocationContent(DataContent latitude, DataContent longitude) {
+	public LocationContent(String latitude, String longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
 	
-	public DataContent getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public DataContent getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 }

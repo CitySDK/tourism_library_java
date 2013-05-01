@@ -328,8 +328,8 @@ public class TourismClient implements Cloneable {
 	 * <li>{@link citysdk.tourism.client.terms.ParameterTerms#ROUTES}.</li>
 	 * </ul>
 	 * 
-	 * @param term
-	 *            the term to use for the search of categories.
+	 * @param list
+	 *            the parameters that should be followed. It should contain a list with one of the above terms specified
 	 * @return a {@link citysdk.tourism.client.poi.single.Category}.
 	 * @throws IOException
 	 *             thrown in case of socket errors.
@@ -345,22 +345,17 @@ public class TourismClient implements Cloneable {
 	 * @throws VersionNotAvailableException
 	 *             thrown if a previously set version is not available.
 	 */
-	public Category getCategories(ParameterTerms term) throws IOException,
+	public Category getCategories(ParameterList list) throws IOException,
 			UnknownErrorException, InvalidParameterTermException,
 			ServerErrorException, ResourceNotAllowedException,
 			VersionNotAvailableException {
 		verifyVersion();
-		validateTerm(term);
+		validateTerm((String)list.getWithTerm(ParameterTerms.LIST).getValue());
 		try {
-			ParameterList list = new ParameterList();
-			list.add(new Parameter(ParameterTerms.LIST, term.getTerm()));
-			String url = validateAndBuildUrl(ResourceTerms.FIND_CATEGORIES,
-					list);
+			String url = validateAndBuildUrl(ResourceTerms.FIND_CATEGORIES, list);
 			parser.setJson(Request.getResponse(url));
 			return parser.parseJsonAsCategory();
 		} catch (InvalidParameterException e) {
-			e.printStackTrace();
-		} catch (InvalidValueException e) {
 			e.printStackTrace();
 		}
 
@@ -376,8 +371,8 @@ public class TourismClient implements Cloneable {
 	 * <li>{@link citysdk.tourism.client.terms.ParameterTerms#ROUTES}.</li>
 	 * </ul>
 	 * 
-	 * @param term
-	 *            the term to use for the search of tags.
+	 * @param list
+	 *            the parameters that should be followed. It should contain a list with one of the above terms specified
 	 * @return a {@link citysdk.tourism.client.poi.lists.ListTag}.
 	 * @throws IOException
 	 *             thrown in case of socket errors.
@@ -393,21 +388,17 @@ public class TourismClient implements Cloneable {
 	 * @throws VersionNotAvailableException
 	 *             thrown if a previously set version is not available.
 	 */
-	public ListTag getTags(ParameterTerms term) throws IOException,
+	public ListTag getTags(ParameterList list) throws IOException,
 			UnknownErrorException, ServerErrorException,
 			InvalidParameterTermException, ResourceNotAllowedException,
 			VersionNotAvailableException {
 		verifyVersion();
-		validateTerm(term);
+		validateTerm((String)list.getWithTerm(ParameterTerms.LIST).getValue());
 		try {
-			ParameterList list = new ParameterList();
-			list.add(new Parameter(ParameterTerms.LIST, term.getTerm()));
 			String url = validateAndBuildUrl(ResourceTerms.FIND_TAGS, list);
 			parser.setJson(Request.getResponse(url));
 			return parser.parseJsonAsTags();
 		} catch (InvalidParameterException e) {
-			e.printStackTrace();
-		} catch (InvalidValueException e) {
 			e.printStackTrace();
 		}
 
@@ -596,17 +587,17 @@ public class TourismClient implements Cloneable {
 	/*
 	 * Validates the term by verifying if it is POIS, EVENTS or ROUTES
 	 */
-	private void validateTerm(ParameterTerms term)
+	private void validateTerm(String term)
 			throws InvalidParameterTermException {
 		if (term == null)
 			throw new InvalidParameterTermException(
-					"Term must be either POIS, EVENTS or ROUTES");
+					"There should be a list with the value set to POIS, EVENTS or ROUTES");
 
-		if (!term.equalsTerm(ParameterTerms.POIS.getTerm())
-				&& !term.equalsTerm(ParameterTerms.EVENTS.getTerm())
-				&& !term.equalsTerm(ParameterTerms.ROUTES.getTerm()))
+		if (!term.equals(ParameterTerms.POIS.getTerm())
+				&& !term.equals(ParameterTerms.EVENTS.getTerm())
+				&& !term.equals(ParameterTerms.ROUTES.getTerm()))
 			throw new InvalidParameterTermException(
-					"Term must be either POIS, EVENTS or ROUTES");
+					"List term must be either POIS, EVENTS or ROUTES");
 	}
 
 	/*

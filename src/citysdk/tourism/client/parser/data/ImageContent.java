@@ -27,12 +27,13 @@ package citysdk.tourism.client.parser.data;
  * @author Pedro Cruz
  *
  */
-public class ImageContent extends DataContent {
+public class ImageContent {
+	private String content;
 	private boolean imgByteCode;
 	private boolean imgUri;
 	
 	public ImageContent(String content) {
-		super(content);
+		this.content = content;
 	}
 
 	public boolean hasImgByteCode() {
@@ -49,5 +50,13 @@ public class ImageContent extends DataContent {
 
 	public void isImgUri(boolean imgUri) {
 		this.imgUri = imgUri;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }

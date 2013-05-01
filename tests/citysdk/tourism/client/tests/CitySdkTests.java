@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,7 +38,6 @@ import citysdk.tourism.client.exceptions.UnknownErrorException;
 import citysdk.tourism.client.exceptions.VersionNotAvailableException;
 import citysdk.tourism.client.parser.DataReader;
 import citysdk.tourism.client.parser.Field;
-import citysdk.tourism.client.parser.data.DataContent;
 import citysdk.tourism.client.parser.data.ImageContent;
 import citysdk.tourism.client.poi.lists.ListEvent;
 import citysdk.tourism.client.poi.lists.ListPointOfInterest;
@@ -100,7 +100,7 @@ public class CitySdkTests {
 		
 		categories = category.getSubCategories();
 		for (Category cat : categories) {
-			System.out.println("Category: " + DataReader.getLabel(cat, Term.LABEL_TERM_PRIMARY, new Locale("pt", "PT")).getContent());
+			System.out.println("Category: " + DataReader.getLabel(cat, Term.LABEL_TERM_PRIMARY, new Locale("pt", "PT")));
 			if (cat.getNumCategories() > 0) {
 				printCategories(cat);
 			}
@@ -108,8 +108,10 @@ public class CitySdkTests {
 	}
 
 	@Test
-	public void testCategories() throws IOException, UnknownErrorException, InvalidParameterTermException, ServerErrorException, ResourceNotAllowedException, VersionNotAvailableException {
-		Category categories = client.getCategories(ParameterTerms.POIS);
+	public void testCategories() throws IOException, UnknownErrorException, InvalidParameterTermException, ServerErrorException, ResourceNotAllowedException, VersionNotAvailableException, InvalidParameterException, InvalidValueException {
+		ParameterList list = new ParameterList();
+		list.add(new Parameter(ParameterTerms.LIST, ParameterTerms.POIS.getTerm()));
+		Category categories = client.getCategories(list);
 		printCategories(categories);
 	}
 	
@@ -167,8 +169,6 @@ public class CitySdkTests {
 	    String thumbnail = null;
 	    String image = null;
 	    
-	    DataContent content = null;
-	    
 	    List<Integer> show = new ArrayList<Integer>();
 		show.add(0);
 		show.add(19);
@@ -193,11 +193,9 @@ public class CitySdkTests {
 	    Locale locale = new Locale("pt", "PT");
 		
 		for(Event event : events) {
-			content = DataReader.getLabel(event, Term.LABEL_TERM_PRIMARY, locale);
-	        label = content.getContent();
+			label = DataReader.getLabel(event, Term.LABEL_TERM_PRIMARY, locale);
 	         
-	        content = DataReader.getDescription(event, locale);
-	        description = content.getContent();
+	        description = DataReader.getDescription(event, locale);
 	         
 	        List<ImageContent> img = DataReader.getThumbnails(event);
 	        ImageContent imgContent = null;
