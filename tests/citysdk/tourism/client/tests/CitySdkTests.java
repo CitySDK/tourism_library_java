@@ -82,7 +82,8 @@ public class CitySdkTests {
 		
 		List<String> category = new ArrayList<String>();
 		category.add("Music");
-		category.add("Live");
+		category.add("Not’cias");
+		category.add("Stuff from Stuff");
 		
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));

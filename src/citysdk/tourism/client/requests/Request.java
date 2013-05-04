@@ -47,8 +47,7 @@ public class Request {
 		httpUrl.setRequestMethod("GET");
 		httpUrl.setRequestProperty("Accept", "application/json");
 		httpUrl.connect();
-		
-		System.out.println("URL: " + url);
+	
 		int code = httpUrl.getResponseCode();
 		if(code == 200) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
