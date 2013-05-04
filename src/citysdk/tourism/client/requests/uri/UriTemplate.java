@@ -151,7 +151,7 @@ public class UriTemplate {
 		}
 
 		values.clear();
-		return uri;
+		return uri.replace(" ", "%20");
 	}
 
 	/*
@@ -179,8 +179,8 @@ public class UriTemplate {
 	private String modify(String value, String size, Operator op) {
 		String parameters = "";
 		if (values.containsKey(value)) {
-			String v = encode(((String) values.get(value)).substring(0,
-					Integer.parseInt(size)));
+			String v = ((String) values.get(value)).substring(0,
+					Integer.parseInt(size));
 			if (op.isNamed())
 				parameters += value + "=" + v;
 			else
@@ -216,7 +216,6 @@ public class UriTemplate {
 	 */
 	private String expandSimple(String value, Operator op, String obj) {
 		String parameters = "";
-		obj = encode(obj);
 		if (op.isNamed())
 			parameters += value + "=" + obj;
 		else
@@ -239,10 +238,10 @@ public class UriTemplate {
 			String name = it.next().toString();
 			Object ob = map.get(name);
 			if (op.isNamed()) {
-				parameters += name.toString() + "=" + encode(ob.toString()) + separator;
+				parameters += name.toString() + "=" + ob.toString() + separator;
 			} else {
 				parameters += name.toString() + op.getSeparator()
-						+ encode(ob.toString()) + separator;
+						+ ob.toString() + separator;
 			}
 		}
 
@@ -265,7 +264,7 @@ public class UriTemplate {
 		while (it.hasNext()) {
 			String name = it.next().toString();
 			Object ob = map.get(name);
-			parameters += name.toString() + "," + encode(ob.toString()) + separator;
+			parameters += name.toString() + "," + ob.toString() + separator;
 		}
 
 		parameters = parameters.substring(0, parameters.length() - 1);
@@ -284,9 +283,9 @@ public class UriTemplate {
 		while (it.hasNext()) {
 			Object ob = it.next();
 			if (op.isNamed()) {
-				parameters += value + "=" + encode(ob.toString()) + separator;
+				parameters += value + "=" + ob.toString() + separator;
 			} else {
-				parameters += encode(ob.toString()) + separator;
+				parameters += ob.toString() + separator;
 			}
 		}
 
@@ -307,35 +306,11 @@ public class UriTemplate {
 
 		while (it.hasNext()) {
 			Object ob = it.next();
-			parameters += encode(ob.toString()) + separator;
+			parameters += ob.toString() + separator;
 		}
 
 		parameters = parameters.substring(0, parameters.length() - 1);
 		parameters += op.getSeparator();
 		return parameters;
 	}
-	
-	private static String encode(String input) {
-        StringBuilder resultStr = new StringBuilder();
-        for (char ch : input.toCharArray()) {
-            if (isUnsafe(ch)) {
-                resultStr.append('%');
-                resultStr.append(toHex(ch / 16));
-                resultStr.append(toHex(ch % 16));
-            } else {
-                resultStr.append(ch);
-            }
-        }
-        return resultStr.toString();
-    }
-
-    private static char toHex(int ch) {
-        return (char) (ch < 10 ? '0' + ch : 'A' + ch - 10);
-    }
-
-    private static boolean isUnsafe(char ch) {
-        if (ch > 128 || ch < 0)
-            return true;
-        return " %$&+,/:;=?@<>#%".indexOf(ch) >= 0;
-    }
 }
