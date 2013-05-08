@@ -21,12 +21,16 @@
 package citysdk.tourism.client.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,6 +66,25 @@ import citysdk.tourism.client.terms.Term;
 public class CitySdkTests {
 	private TourismClient client;
 	private String homeUrl = "http://polar-lowlands-9873.herokuapp.com/?list=backend";
+	private String categories[] = { "alojamento", "hoteis", "hostel", "motel", "musica" };
+	private Locale locale[] = { new Locale("pt", "PT"), new Locale("en", "GB") };
+	private String reader[][] = {
+			{ 
+			  "Awolnation",  
+			  "Awolnation ao vivo na TMN ao Vivo", 
+			  "http://www1.sk-static.com/images/media/img/col6/20110322-001232-973681.jpg"
+			},	
+			{ 
+			  "Sigur Ros",  
+			  "Sigur Ros ao vivo no Campo Pequeno", 
+			  "http://www1.sk-static.com/images/media/img/col6/20120930-091715-168615.jpg"
+			},	
+			{ 
+			  "Mumford and Sons",  
+			  "Mumford and Sons ao vivo no Coliseu de Lisboa", 
+			  "http://www2.sk-static.com/images/media/img/col6/20110613-051124-257858.jpg"
+			},	
+	};
 		
 	@Before
 	public void setUp() throws Exception {
@@ -93,14 +116,23 @@ public class CitySdkTests {
 		}
 	}
 	
-	private static void printCategories(Category category) {
+	private boolean hasCategory(String category) {
+		for(int i = 0; i < this.categories.length; i++) {
+			if(this.categories[i].equals(category))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	private void assertCategories(Category category) {
 		List<Category> categories;
 		
 		categories = category.getSubCategories();
 		for (Category cat : categories) {
-			System.out.println("Category: " + DataReader.getLabel(cat, Term.LABEL_TERM_PRIMARY, new Locale("pt", "PT")));
+			Assert.assertTrue(hasCategory(DataReader.getLabel(cat, Term.LABEL_TERM_PRIMARY, new Locale("pt", "PT"))));
 			if (cat.getNumCategories() > 0) {
-				printCategories(cat);
+				assertCategories(cat);
 			}
 		}
 	}
@@ -110,7 +142,7 @@ public class CitySdkTests {
 		ParameterList list = new ParameterList();
 		list.add(new Parameter(ParameterTerms.LIST, ParameterTerms.POIS.getTerm()));
 		Category categories = client.getCategories(list);
-		printCategories(categories);
+		assertCategories(categories);
 	}
 	
 	@Test
@@ -156,7 +188,6 @@ public class CitySdkTests {
 		List<PointOfInterest> pois = poiList.getPois();
 		for(PointOfInterest poi : pois) {
 			Map<String, Locale> map = DataReader.getAvailableLangs(poi, Field.FIELD_LABEL);
-			Locale locale[] = { new Locale("pt", "PT"), new Locale("en", "GB") };
 			int i = 0;
 			for(String key : map.keySet()) {
 				assertEquals(map.get(key).getLanguage(), locale[i++].getLanguage());
@@ -169,7 +200,6 @@ public class CitySdkTests {
 		String label = null;
 	    String description = null;
 	    String thumbnail = null;
-	    String image = null;
 	    
 	    List<Integer> show = new ArrayList<Integer>();
 		show.add(0);
@@ -193,33 +223,25 @@ public class CitySdkTests {
 		
 	    DataReader.setDefaultLocale(new Locale("en","GB"));
 	    Locale locale = new Locale("pt", "PT");
-		
+		int i = 0, j;
 		for(Event event : events) {
+			j = 0;
+			
 			label = DataReader.getLabel(event, Term.LABEL_TERM_PRIMARY, locale);
-	         
 	        description = DataReader.getDescription(event, locale);
-	         
 	        List<ImageContent> img = DataReader.getThumbnails(event);
 	        ImageContent imgContent = null;
 	        if(img.size() > 0) {
 	            imgContent = img.get(0);
 	            thumbnail = imgContent.getContent();
 	        }
-	         
-	        List<ImageContent> imgUri = DataReader.getImagesUri(event);
-	        if(imgUri.size() > 0)
-	            image = imgUri.get(0).getContent();
 	                
-	        System.out.println("LABEL: " + label);
-	        System.out.println("DESCRIPTION: " + description);
-	        if(imgContent != null) {
-	            System.out.println("THUMBNAIL (URI?: " + imgContent.hasImgUri() + ")" + 
-	                    ";(BYTE-CODE?: " + imgContent.hasImgByteCode() + ") : " + thumbnail);
-	        } else {
-	            System.out.println("THUMBNAIL: " + thumbnail);
-	        }
-	         
-	        System.out.println("IMAGE: " + image);
+	        assertEquals(label, reader[i][j++]);
+	        assertEquals(description, reader[i][j++]);
+	        assertNotNull(imgContent);
+	        assertTrue(imgContent.hasImgUri());
+	        assertTrue(!imgContent.hasImgByteCode());
+	        assertEquals(thumbnail, reader[i++][j++]);
 		}
 	}
 }
