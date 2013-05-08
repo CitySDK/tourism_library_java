@@ -69,12 +69,10 @@ public class TourismClientFactory {
 	public TourismClient getClient(String homeUrl) throws IOException, UnknownErrorException, ServerErrorException {
 		TourismClient client = null;
 		if(!loadedUrls.containsKey(homeUrl)){
-			System.out.println(homeUrl + " has no client, creating it...");
 			client = initializeClient(homeUrl);
 			loadedUrls.put(homeUrl, client);
 		} else {
 			try {
-				System.out.println(homeUrl + " has client, delivering it...");
 				client = (TourismClient) loadedUrls.get(homeUrl).clone();
 			} catch (CloneNotSupportedException e) {
 				e.printStackTrace();

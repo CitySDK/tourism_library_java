@@ -20,6 +20,8 @@
  */
 package citysdk.tourism.client.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +93,10 @@ public class CitySdkTests {
 		params.add(new Parameter(ParameterTerms.SHOW, show));
 		ListEvent eventList = client.getEvents(params);
 		List<Event> events = eventList.getEvents();
+		String url = "http://polar-lowlands-9873.herokuapp.com/v1/event/";
+		Integer id = 1;
 		for(Event event : events) {
-			System.out.println(event.getBase() + "" + event.getId());
+			assertEquals(event.getBase() + "" + event.getId(), url + (id++));
 		}
 	}
 	
@@ -132,9 +136,11 @@ public class CitySdkTests {
 		params.add(new Parameter(ParameterTerms.SHOW, show));
 		ListPointOfInterest poiList = client.getPois(params);
 		List<PointOfInterest> pois = poiList.getPois();
+		String url = "http://polar-lowlands-9873.herokuapp.com/v1/poi/";
+		Integer id = 1;
 		for(PointOfInterest poi : pois) {
 			poi = client.getPoi(poi.getBase(), poi.getId());
-			System.out.println(poi.getBase() + "" + poi.getId());
+			assertEquals(poi.getBase() + "" + poi.getId(), url + (id++));
 		}
 	}
 	
@@ -157,8 +163,10 @@ public class CitySdkTests {
 		List<PointOfInterest> pois = poiList.getPois();
 		for(PointOfInterest poi : pois) {
 			Map<String, Locale> map = DataReader.getAvailableLangs(poi, Field.FIELD_LABEL);
+			Locale locale[] = { new Locale("pt", "PT"), new Locale("en", "GB") };
+			int i = 0;
 			for(String key : map.keySet()) {
-				System.out.println(key + ": " + map.get(key));
+				assertEquals(map.get(key).getLanguage(), locale[i++].getLanguage());
 			}
 		}
 	}
