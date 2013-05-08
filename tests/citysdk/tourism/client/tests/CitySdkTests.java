@@ -68,13 +68,6 @@ public class CitySdkTests {
 		client = TourismClientFactory.getInstance().getClient(homeUrl);
 		client.useVersion("1.0");
 	}
-	
-	@Test
-	public void testGeneric() throws Exception {
-		ParameterList list = new ParameterList();
-		list.add(new Parameter(ParameterTerms.CODE, "http://awolnationmusic.com/"));
-		client.getGeneric(list);
-	}
 
 	@Test
 	public void testListEvent() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
