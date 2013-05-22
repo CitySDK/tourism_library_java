@@ -94,9 +94,7 @@ public class CitySdkTests {
 
 	@Test
 	public void testListEvent() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
-		List<Integer> show = new ArrayList<Integer>();
-		show.add(0);
-		show.add(19);
+		Integer limit = 20, offset = 0;
 		
 		List<String> category = new ArrayList<String>();
 		category.add("Music");
@@ -106,7 +104,8 @@ public class CitySdkTests {
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));
 		params.add(new Parameter(ParameterTerms.TAG, "rock"));
-		params.add(new Parameter(ParameterTerms.SHOW, show));
+		params.add(new Parameter(ParameterTerms.LIMIT, limit));
+		params.add(new Parameter(ParameterTerms.OFFSET, offset));
 		ListEvent eventList = client.getEvents(params);
 		List<Event> events = eventList.getEvents();
 		String url = "http://polar-lowlands-9873.herokuapp.com/v1/event/";
@@ -147,9 +146,7 @@ public class CitySdkTests {
 	
 	@Test
 	public void testPoiWithId() throws InvalidParameterException, IOException, UnknownErrorException, ServerErrorException, ResourceNotAllowedException, VersionNotAvailableException, InvalidValueException {
-		List<Integer> show = new ArrayList<Integer>();
-		show.add(0);
-		show.add(19);
+		Integer limit = 20, offset = 0;
 		
 		List<String> category = new ArrayList<String>();
 		category.add("Museum");
@@ -158,7 +155,8 @@ public class CitySdkTests {
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));
 		params.add(new Parameter(ParameterTerms.TAG, "culture"));
-		params.add(new Parameter(ParameterTerms.SHOW, show));
+		params.add(new Parameter(ParameterTerms.LIMIT, limit));
+		params.add(new Parameter(ParameterTerms.OFFSET, offset));
 		ListPointOfInterest poiList = client.getPois(params);
 		List<PointOfInterest> pois = poiList.getPois();
 		String url = "http://polar-lowlands-9873.herokuapp.com/v1/poi/";
@@ -171,9 +169,7 @@ public class CitySdkTests {
 	
 	@Test
 	public void testAvailableLanguages() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
-		List<Integer> show = new ArrayList<Integer>();
-		show.add(0);
-		show.add(19);
+		Integer limit = 20, offset = 0;
 		
 		List<String> category = new ArrayList<String>();
 		category.add("Museum");
@@ -182,7 +178,8 @@ public class CitySdkTests {
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));
 		params.add(new Parameter(ParameterTerms.TAG, "culture"));
-		params.add(new Parameter(ParameterTerms.SHOW, show));
+		params.add(new Parameter(ParameterTerms.LIMIT, limit));
+		params.add(new Parameter(ParameterTerms.OFFSET, offset));
 		
 		ListPointOfInterest poiList = client.getPois(params);
 		List<PointOfInterest> pois = poiList.getPois();
@@ -201,9 +198,7 @@ public class CitySdkTests {
 	    String description = null;
 	    String thumbnail = null;
 	    
-	    List<Integer> show = new ArrayList<Integer>();
-		show.add(0);
-		show.add(19);
+	    Integer limit = 20, offset = 0;
 		
 		List<String> category = new ArrayList<String>();
 		category.add("Music");
@@ -216,7 +211,8 @@ public class CitySdkTests {
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));
 		params.add(new Parameter(ParameterTerms.TAG, tag));
-		params.add(new Parameter(ParameterTerms.SHOW, show));
+		params.add(new Parameter(ParameterTerms.LIMIT, limit));
+		params.add(new Parameter(ParameterTerms.OFFSET, offset));
 		
 		ListEvent eventList = client.getEvents(params);
 		List<Event> events = eventList.getEvents();

@@ -84,9 +84,13 @@ public enum ParameterTerms {
 	 */
 	CODE("code", SEARCH_PARAMETERS),
 	/**
-	 * The search parameter using show
+	 * The search parameter using limit
 	 */
-	SHOW("show", SEARCH_PARAMETERS),
+	LIMIT("limit", SEARCH_PARAMETERS),
+	/**
+	 * The search parameter using offset
+	 */
+	OFFSET("offset", SEARCH_PARAMETERS),
 	/**
 	 * The search parameter using event
 	 */

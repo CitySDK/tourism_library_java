@@ -71,10 +71,10 @@ public class Resources implements Deserializable {
 	 * @return <code>true</code> if it has the given resource,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean hasResource(String version, String resource) {
+	public boolean hasResource(String version, ResourceTerms resource) {
 		if (version != null && resource != null
 				&& resources.containsKey(version)) {
-			return resources.get(version).getLinks().containsKey(resource);
+			return resources.get(version).getLinks().containsKey(resource.getTerm());
 		}
 
 		return false;
