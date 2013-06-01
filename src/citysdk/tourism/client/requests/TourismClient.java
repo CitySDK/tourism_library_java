@@ -129,7 +129,7 @@ public class TourismClient implements Cloneable {
 			return false;
 
 		verifyVersion();
-		return resources.hasResource(version, resource.getTerm());
+		return resources.hasResource(version, resource);
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class TourismClient implements Cloneable {
 		validateResource(resource);
 		List<String> links = resource.getChildren();
 		for (String link : links) {
-			if (this.resources.hasResource(version, link))
+			if (this.resources.hasResource(version, ResourceTerms.fromString(link)))
 				return true;
 		}
 
@@ -659,7 +659,7 @@ public class TourismClient implements Cloneable {
 	 */
 	private void verifyResource(ResourceTerms findPoi)
 			throws ResourceNotAllowedException {
-		if (!resources.hasResource(version, findPoi.getTerm())) {
+		if (!resources.hasResource(version, findPoi)) {
 			throw new ResourceNotAllowedException(findPoi.getTerm()
 					+ " is not allowed for this server");
 		}
