@@ -657,10 +657,10 @@ public class TourismClient implements Cloneable {
 	/*
 	 * Checks the parameter availability in the server.
 	 */
-	private void verifyResource(ResourceTerms findPoi)
+	private void verifyResource(ResourceTerms resource)
 			throws ResourceNotAllowedException {
-		if (!resources.hasResource(version, findPoi)) {
-			throw new ResourceNotAllowedException(findPoi.getTerm()
+		if (!resources.hasResource(version, resource)) {
+			throw new ResourceNotAllowedException(resource.getTerm()
 					+ " is not allowed for this server");
 		}
 	}
