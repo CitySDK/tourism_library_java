@@ -168,7 +168,7 @@ public class UriTemplate {
 			} else if (obj instanceof Map) {
 				return expandMap(value, op, (Map<?, ?>) obj);
 			} else {
-				return expandSimple(value, op, (String) obj);
+				return expandSimple(value, op, obj);
 			}
 		}
 
@@ -206,7 +206,7 @@ public class UriTemplate {
 			} else if (obj instanceof Map) {
 				return explodeMap(op, (Map<?, ?>) obj);
 			} else {
-				return expandSimple(value, op, (String) obj);
+				return expandSimple(value, op, obj);
 			}
 		}
 
@@ -216,13 +216,13 @@ public class UriTemplate {
 	/*
 	 * Replace the {var} into its string value
 	 */
-	private String expandSimple(String value, Operator op, String obj) {
+	private String expandSimple(String value, Operator op, Object obj) {
 		String parameters = "";
 		obj = encode(obj);
 		if (op.isNamed())
 			parameters += value + "=" + obj;
 		else
-			parameters += obj;
+			parameters += obj.toString();
 
 		parameters += op.getSeparator();
 		return parameters;
@@ -317,13 +317,13 @@ public class UriTemplate {
 		return parameters;
 	}
 	
-	private static String encode(String input) {
+	private static String encode(Object input) {
         try {
-			return URLEncoder.encode(input, "utf-8").replace("+", "%20");
+			return URLEncoder.encode(input.toString(), "utf-8").replace("+", "%20");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
         
-        return input;
+        return input.toString();
     }
 }
