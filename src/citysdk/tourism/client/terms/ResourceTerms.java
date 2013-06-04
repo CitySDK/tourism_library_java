@@ -72,7 +72,11 @@ public enum ResourceTerms {
 	/**
 	 * The term for the search for the list of tags
 	 */
-	FIND_TAGS("find-tags", null);
+	FIND_TAGS("find-tags", null),
+	/**
+	 * The term for the search for QR or barcodes
+	 */
+	FIND_CODE("find-code", null);
 
 	private final String name;
 	private final ResourceTerms parent;

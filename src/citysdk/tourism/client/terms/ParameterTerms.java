@@ -92,17 +92,13 @@ public enum ParameterTerms {
 	 */
 	OFFSET("offset", SEARCH_PARAMETERS),
 	/**
-	 * The search parameter using event
+	 * The search parameter using name
 	 */
-	EVENT("event", SEARCH_PARAMETERS),
+	NAME("name", SEARCH_PARAMETERS),
 	/**
 	 * The search parameter using time
 	 */
 	TIME("time", SEARCH_PARAMETERS),
-	/**
-	 * The search parameter using route
-	 */
-	ROUTE("route", SEARCH_PARAMETERS),
 	/**
 	 * The search parameter using relations
 	 */

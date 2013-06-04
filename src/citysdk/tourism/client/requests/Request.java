@@ -42,13 +42,14 @@ public class Request {
 		if(Url == null)
 			return null;
 		
+		System.out.println("URL: " + Url);
+		
 		URL url = new URL(Url);
 		HttpURLConnection httpUrl = (HttpURLConnection) url.openConnection();
 		httpUrl.setRequestMethod("GET");
 		httpUrl.setRequestProperty("Accept", "application/json");
 		httpUrl.connect();
 	
-		//System.out.println("URL: " + url);
 		int code = httpUrl.getResponseCode();
 		if(code == 200) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
