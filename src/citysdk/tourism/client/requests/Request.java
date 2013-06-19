@@ -42,8 +42,6 @@ public class Request {
 		if(Url == null)
 			return null;
 		
-		System.out.println("URL: " + Url);
-		
 		URL url = new URL(Url);
 		HttpURLConnection httpUrl = (HttpURLConnection) url.openConnection();
 		httpUrl.setRequestMethod("GET");
