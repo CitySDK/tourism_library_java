@@ -37,6 +37,7 @@ import citysdk.tourism.client.poi.base.Point;
 import citysdk.tourism.client.poi.base.Polygon;
 import citysdk.tourism.client.poi.base.Relationship;
 import citysdk.tourism.client.poi.lists.ListEvent;
+import citysdk.tourism.client.poi.lists.ListPOIS;
 import citysdk.tourism.client.poi.lists.ListPointOfInterest;
 import citysdk.tourism.client.poi.lists.ListRoute;
 import citysdk.tourism.client.poi.lists.ListTag;
@@ -202,7 +203,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes a QueryLink JSON Object. It will mainly set the primary
-	 * fields of the mentioned W3C Object: base, id and lang.
+	 * fields of the mentioned POI Object: base, id and lang.
 	 */
 	private HypermediaLink getResource(JsonObject ob) {
 		HypermediaLink hypermediaLink = new HypermediaLink();
@@ -228,8 +229,8 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the a description of the various
-	 * labels unto the W3C Object (either POI, Event or Route). It will mainly
-	 * set the primary fields of the mentioned W3C Object: base, id and lang.
+	 * labels unto the POI Object (either POI, Event or Route). It will mainly
+	 * set the primary fields of the mentioned POI Object: base, id and lang.
 	 */
 	private void getLabels(POI poi, JsonObject jObject) {
 		JsonArray jArray = jObject.getAsJsonArray(LABEL);
@@ -242,7 +243,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the a description of the various
-	 * descriptions (POIBaseType) unto the W3C Object (either POI, Event or
+	 * descriptions (POIBaseType) unto the POI Object (either POI, Event or
 	 * Route).
 	 */
 	private void getDescription(POI poi, JsonObject jObject) {
@@ -256,7 +257,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the a description of the various
-	 * categories (POITermType) unto the W3C Object (either POI, Event or
+	 * categories (POITermType) unto the POI Object (either POI, Event or
 	 * Route).
 	 */
 	private void getCategories(POI poi, JsonObject jObject) {
@@ -270,7 +271,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the geometries described as
-	 * single Points unto the W3C Object (either POI, Event or Route).
+	 * single Points unto the POI Object (either POI, Event or Route).
 	 */
 	private void getPoints(Location location, JsonArray array) {
 		for (int i = 0; i < array.size(); i++) {
@@ -290,7 +291,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the geometries described as Lines
-	 * unto the W3C Object (either POI, Event or Route).
+	 * unto the POI Object (either POI, Event or Route).
 	 */
 	private void getLine(Location location, JsonArray array) {
 		for (int i = 0; i < array.size(); i++) {
@@ -310,7 +311,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the geometries described as
-	 * single Polygons unto the W3C Object (either POI, Event or Route).
+	 * single Polygons unto the POI Object (either POI, Event or Route).
 	 */
 	private void getSimplePolygon(Location location, JsonArray array) {
 		for (int i = 0; i < array.size(); i++) {
@@ -330,7 +331,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the Relationships of the POI unto
-	 * the W3C Object (either POI, Event or Route).
+	 * the POI Object (either POI, Event or Route).
 	 */
 	private void getRelationships(Location location, JsonArray array) {
 		for (int i = 0; i < array.size(); i++) {
@@ -350,7 +351,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 	}
 
 	/*
-	 * Deserializes the JSON Object containing the Location unto the W3C Object
+	 * Deserializes the JSON Object containing the Location unto the POI Object
 	 * (either POI, Event or Route).
 	 */
 	private void getLocation(POI poi, JsonObject jObject) {
@@ -386,7 +387,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the a description of the various
-	 * times (POITermType) unto the W3C Object (either POI, Event or Route).
+	 * times (POITermType) unto the POI Object (either POI, Event or Route).
 	 */
 	private void getTime(POI poi, JsonObject jObject) {
 		JsonArray jArray = jObject.getAsJsonArray(TIME);
@@ -403,7 +404,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 
 	/*
 	 * Deserializes the JSON Object containing the a description of the various
-	 * links (POITermType) unto the W3C Object (either POI, Event or Route).
+	 * links (POITermType) unto the POI Object (either POI, Event or Route).
 	 */
 	private void getLinks(POI poi, JsonObject jObject) {
 		JsonArray jArray = jObject.getAsJsonArray(LINK);
@@ -417,7 +418,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 	/*
 	 * Deserializes the JSON Object as a POI, Event or Route
 	 */
-	private void getSingleW3C(POI poi, JsonObject jObject) {
+	private void getSinglePOI(POI poi, JsonObject jObject) {
 		copyTo(poi, getPOIBaseType(jObject));
 		if (jObject.has(LABEL))
 			getLabels(poi, jObject);
@@ -446,7 +447,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 		JsonArray jArray = jElement.getAsJsonArray();
 		for (int i = 0; i < jArray.size(); i++) {
 			PointOfInterest poi = new PointOfInterest();
-			getSingleW3C(poi, jArray.get(i).getAsJsonObject());
+			getSinglePOI(poi, jArray.get(i).getAsJsonObject());
 			list.addPoi(poi);
 		}
 	}
@@ -459,7 +460,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 		JsonArray jArray = jElement.getAsJsonArray();
 		for (int i = 0; i < jArray.size(); i++) {
 			Event event = new Event();
-			getSingleW3C(event, jArray.get(i).getAsJsonObject());
+			getSinglePOI(event, jArray.get(i).getAsJsonObject());
 			list.addEvent(event);
 		}
 	}
@@ -472,7 +473,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 		JsonArray jArray = jElement.getAsJsonArray();
 		for (int i = 0; i < jArray.size(); i++) {
 			Route route = new Route();
-			getSingleW3C(route, jArray.get(i).getAsJsonObject());
+			getSinglePOI(route, jArray.get(i).getAsJsonObject());
 			list.addRoute(route);
 		}
 	}
@@ -481,7 +482,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 	 * Deserializes the JSON Object as a Route
 	 */
 	private void deserializePoiBased(Deserializable poi, JsonObject json) {
-		getSingleW3C((POI)poi, json);
+		getSinglePOI((POI)poi, json);
 		
 		// for routes
 		if(json.has(POIS)) {
@@ -489,7 +490,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 			ListPointOfInterest list = ((Route) poi).getListPoi();
 			for (int i = 0; i < jArray.size(); i++) {
 				PointOfInterest rPoi = new PointOfInterest();
-				getSingleW3C(rPoi, jArray.get(i).getAsJsonObject());
+				getSinglePOI(rPoi, jArray.get(i).getAsJsonObject());
 				list.addPoi(rPoi);
 			}
 		}
@@ -521,7 +522,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 			for(int i = 0; i < array.size(); i++) {
 				Category cat = new Category();
 				json = array.get(i).getAsJsonObject();
-				getSingleW3C(cat, json);
+				getSinglePOI(cat, json);
 				if(json.has(CATEGORIES)){
 					Category subs = (Category) deserializeCategories(new Category(), json);
 					for(int j = 0; j < subs.getNumCategories(); j++)
@@ -542,7 +543,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 		POI poi;
 		for (int i = 0; i < array.size(); i++) {
 			poi = new Tag();
-			getSingleW3C(poi, array.get(i).getAsJsonObject());
+			getSinglePOI(poi, array.get(i).getAsJsonObject());
 			((Tag) tag).addTag((Tag) poi);
 		}
 	}
@@ -565,6 +566,29 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 	}
 	
 	/*
+	 * Deserializes the Json Object as List of Lists
+	 */
+	private void deserializeListOfList(ListPOIS list, JsonObject jObject) {
+		if(jObject.has(POI)) {
+			ListPointOfInterest pois = new ListPointOfInterest();
+			deserializeListPois(pois, jObject);
+			list.setListPoi(pois);
+		}
+		
+		if(jObject.has(EVENT)) {
+			ListEvent events = new ListEvent();
+			deserializeListEvents(events, jObject);
+			list.setListEvent(events);
+		}
+		
+		if(jObject.has(ROUTES)) {
+			ListRoute routes = new ListRoute();
+			deserializeListRoutes(routes, jObject);
+			list.setListRoute(routes);
+		}
+	}
+	
+	/*
 	 * Infers the class that should be instantiated
 	 */
 	@SuppressWarnings({ "unchecked" })
@@ -582,12 +606,12 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		
+
 		return poi;
 	}
 
 	/**
-	 * Gson deserializer for the CitySDK Tourism W3C Classes
+	 * Gson deserializer for the CitySDK Tourism POI Classes
 	 */
 	@Override
 	public Deserializable deserialize(JsonElement json, Type typeOfT,
@@ -595,7 +619,9 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 		JsonObject jObject = json.getAsJsonObject();
 		Deserializable deserializable = (Deserializable) inferType(typeOfT);
 		
-		if (jObject.has(POI)) {
+		if (deserializable.getClass().equals(ListPOIS.class)) {
+			deserializeListOfList((ListPOIS) deserializable, jObject);
+		} else if (jObject.has(POI)) {
 			deserializeListPois((ListPointOfInterest) deserializable, jObject);
 		} else if (jObject.has(EVENT)) {
 			deserializeListEvents((ListEvent) deserializable, jObject);
@@ -607,7 +633,7 @@ public class POIDeserializer implements JsonDeserializer<Deserializable> {
 			deserializeCategories((Category) deserializable,jObject);
 		} else if (jObject.has(TAGS)) {
 			deserializeTags((ListTag) deserializable, jObject);
-		} else {
+		} else if(deserializable != null) {
 			deserializePoiBased(deserializable, jObject);
 		}
 		

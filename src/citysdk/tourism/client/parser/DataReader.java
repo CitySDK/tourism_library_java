@@ -88,7 +88,8 @@ public class DataReader {
 	 * @return a mapping of language codes and the respective locales.
 	 */
 	public static Map<String, Locale> getAvailableLangs(POI poi, Field field) {
-		if (poi == null)
+		if (poi == null
+				|| field == null)
 			return null;
 
 		Map<String, Locale> languages = new HashMap<String, Locale>();
@@ -146,6 +147,14 @@ public class DataReader {
 	private static List<? extends POIBaseType> getDescriptions(POI poi) {
 		return poi.getDescription();
 	}
+	
+	/*
+	 * Gets the categories field of a POI
+	 */
+	@SuppressWarnings("unused")
+	private static List<? extends POIBaseType> getCategories(POI poi) {
+		return poi.getCategory();
+	}
 
 	/*
 	 * Parses the locale of a given string
@@ -180,7 +189,8 @@ public class DataReader {
 	 *         return a DataContent containing null.
 	 */
 	public static String getLabel(POI poi, Term term, Locale lang) {
-		if (poi == null)
+		if (poi == null
+				|| lang == null)
 			return null;
 
 		Locale labelLang;
@@ -220,7 +230,8 @@ public class DataReader {
 	 *         null.
 	 */
 	public static String getDescription(POI poi, Locale lang) {
-		if (poi == null)
+		if (poi == null
+				|| lang == null)
 			return null;
 
 		Locale descriptionLang;
@@ -242,6 +253,40 @@ public class DataReader {
 		}
 
 		return defaultValue;
+	}
+	
+	/**
+	 * Gets the categories in a given language.
+	 * 
+	 * @param poi
+	 *            the object to get the data.
+	 * @param lang
+	 *            the wanted language.
+	 * @return a list containing the following: the categories in the
+	 *         desired language if none found or empty.
+	 */
+	public static List<String> getCategories(POI poi, Locale lang) {
+		List<String> poiCategories = new ArrayList<String>();
+		if (poi == null
+				|| lang == null)
+			return poiCategories;
+
+		Locale categoryLang;
+		Locale poiLang = parseLocale(poi.getLang());
+
+		List<POITermType> categories = poi.getCategory();
+		for (POITermType category : categories) {
+			if (category.getLang().equals(""))
+				categoryLang = poiLang;
+			else
+				categoryLang = parseLocale(category.getLang());
+
+			if (categoryLang.getLanguage().equals(lang.getLanguage())) {
+				poiCategories.add(category.getValue());
+			}
+		}
+
+		return poiCategories;
 	}
 
 	/**

@@ -28,7 +28,8 @@ package citysdk.tourism.client.parser;
  */
 public enum Field {
 	FIELD_LABEL("getLabels"),
-	FIELD_DESCRIPTION("getDescriptions");
+	FIELD_DESCRIPTION("getDescriptions"),
+	FIELD_CATEGORY("getCategories");
 	
 	private final String name;
 	

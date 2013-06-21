@@ -23,6 +23,7 @@ package citysdk.tourism.client.parser;
 import citysdk.tourism.client.exceptions.UnknownErrorException;
 import citysdk.tourism.client.poi.Deserializable;
 import citysdk.tourism.client.poi.lists.ListEvent;
+import citysdk.tourism.client.poi.lists.ListPOIS;
 import citysdk.tourism.client.poi.lists.ListPointOfInterest;
 import citysdk.tourism.client.poi.lists.ListRoute;
 import citysdk.tourism.client.poi.lists.ListTag;
@@ -146,6 +147,15 @@ public class JsonParser {
 	 */
 	public ListTag parseJsonAsTags() throws UnknownErrorException {
 		return (ListTag) parseJson(ListTag.class);
+	}
+	
+	/**
+	 * Parses the JSON as a {@link citysdk.tourism.client.poi.lists.ListPOIS}.
+	 * @return a {@link citysdk.tourism.client.poi.lists.ListPOIS} containing the content of the JSON message.
+	 * @throws UnknownErrorException thrown in case of unforeseen errors. 
+	 */
+	public ListPOIS parseJsonAsListPOIS() throws UnknownErrorException {
+		return (ListPOIS) parseJson(ListPOIS.class);
 	}
 
 	/**
