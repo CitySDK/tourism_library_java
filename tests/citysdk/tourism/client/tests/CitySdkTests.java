@@ -46,6 +46,7 @@ import citysdk.tourism.client.parser.DataReader;
 import citysdk.tourism.client.parser.Field;
 import citysdk.tourism.client.parser.data.ImageContent;
 import citysdk.tourism.client.poi.lists.ListEvent;
+import citysdk.tourism.client.poi.lists.ListPOIS;
 import citysdk.tourism.client.poi.lists.ListPointOfInterest;
 import citysdk.tourism.client.poi.single.Category;
 import citysdk.tourism.client.poi.single.Event;
@@ -239,5 +240,17 @@ public class CitySdkTests {
 	        assertTrue(!imgContent.hasImgByteCode());
 	        assertEquals(thumbnail, reader[i++][j++]);
 		}
+	}
+	
+	@Test
+	public void testCode() throws IOException, UnknownErrorException, ServerErrorException, InvalidParameterException, InvalidValueException, InvalidParameterTermException, ResourceNotAllowedException, VersionNotAvailableException {
+		TourismClientFactory factory = TourismClientFactory.getInstance();
+        TourismClient client = factory.getClient("http://tourism.citysdk.cm-lisboa.pt/resources");
+        client.useVersion("1.0");
+     
+        ListPOIS values = client.getByCode("www.parquedasnacoes.pt");
+        ListPointOfInterest pois = values.getListPoi();
+        assertEquals(pois.get(0).getId(), "51c30c8f723e8e0268cce672");
+        assertEquals(DataReader.getCategories(pois.get(0), new Locale("pt", "PT")).size(), 4);
 	}
 }
