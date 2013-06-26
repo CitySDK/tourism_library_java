@@ -60,7 +60,7 @@ public class DataReader {
 	private static final String PRICE_TERM = "X-citysdk/price";
 	private static final String WAITING_TERM = "X-citysdk/waiting-time";
 	private static final String OCCUPATION_TERM = "X-citysdk/occupation";
-	private static final String CALENDAR_TERM = "text/calendar";
+	private static final String CALENDAR_TERM = "text/icalendar";
 	private static final String IMAGE_TERM = "image/";
 	private static Locale defaultLang = new Locale("en", "GB");
 
@@ -650,9 +650,9 @@ public class DataReader {
 			for (Relationship relation : list) {
 				if (relation.getTerm().equals(term.getTerm())) {
 					if (relation.hasTargetPOI())
-						return new String(relation.getTargetPOI());
+						return relation.getTargetPOI();
 					else
-						return new String(relation.getTargetEvent());
+						return relation.getTargetEvent();
 				}
 			}
 		}
@@ -677,7 +677,7 @@ public class DataReader {
 		List<POITermType> links = poi.getLink();
 		for (POITermType link : links) {
 			if (link.getTerm().equals(term.getTerm())) {
-				return new String(link.getHref());
+				return link.getHref();
 			}
 		}
 		return null;
@@ -704,7 +704,7 @@ public class DataReader {
 			for (Tag t : tagValues) {
 				if (parseLocale(t.getLang()).getLanguage().equals(
 						lang.getLanguage()))
-					tagList.add(new String(t.getValue()));
+					tagList.add(t.getValue());
 			}
 		}
 
