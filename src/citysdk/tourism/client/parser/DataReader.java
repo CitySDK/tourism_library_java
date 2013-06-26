@@ -356,13 +356,13 @@ public class DataReader {
 				if (lang != null
 						&& descriptionLang.getLanguage().equals(
 								lang.getLanguage()))
-					return new String(description.getValue());
+					return description.getValue();
 				else if (lang == null)
-					return new String(description.getValue());
+					return description.getValue();
 			}
 		}
 
-		return new String(defaultValue);
+		return defaultValue;
 	}
 
 	/**
