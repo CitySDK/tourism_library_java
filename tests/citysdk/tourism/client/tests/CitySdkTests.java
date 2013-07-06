@@ -250,7 +250,6 @@ public class CitySdkTests {
      
         ListPOIS values = client.getByCode("www.parquedasnacoes.pt");
         ListPointOfInterest pois = values.getListPoi();
-        assertEquals(pois.get(0).getId(), "51c30c8f723e8e0268cce672");
-        assertEquals(DataReader.getCategories(pois.get(0), new Locale("pt", "PT")).size(), 4);
+        assertEquals(DataReader.getCategories(pois.get(0), new Locale("pt", "PT")).size(), 5);
 	}
 }

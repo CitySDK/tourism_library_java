@@ -25,6 +25,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import citysdk.tourism.client.exceptions.InvalidParameterException;
 import citysdk.tourism.client.exceptions.InvalidParameterTermException;
@@ -56,7 +60,8 @@ import citysdk.tourism.client.terms.Term;
 /**
  * Stub used for the CitySDK Tourism API. It abstracts applications from the
  * different requests allowed in the API and returns the correct data objects
- * from such calls.
+ * from such calls. The stub also provides a logging mechanism defaulting to 
+ * INFO level messages.
  * 
  * @author Pedro Cruz
  * 
@@ -66,6 +71,7 @@ public class TourismClient implements Cloneable {
 	private JsonParser parser;
 	private Resources resources;
 	private String version;
+	private Logger logger; 
 
 	protected TourismClient() {
 		this.version = null;
@@ -75,6 +81,7 @@ public class TourismClient implements Cloneable {
 		this.homeUrl = homeUrl;
 		this.resources = links;
 		this.parser = new JsonParser(null);
+		initLogging();
 	}
 
 	protected TourismClient(TourismClient client) {
@@ -82,6 +89,12 @@ public class TourismClient implements Cloneable {
 		this.resources = client.resources;
 		this.version = client.version;
 		this.parser = new JsonParser(null);
+		initLogging();
+	}
+	
+	private void initLogging() {
+		this.logger = LogManager.getLogManager().getLogger(Logger.GLOBAL_LOGGER_NAME);
+		this.logger.setLevel(Level.INFO);
 	}
 
 	@Override
@@ -89,10 +102,26 @@ public class TourismClient implements Cloneable {
 		return super.clone();
 	}
 
+	/**
+	 * Set the logging level for the logger
+	 * @param level the wanted level
+	 */
+	public void setLoggingLevel(Level level) {
+		ConsoleHandler handler = new ConsoleHandler();
+        handler.setLevel(level);
+        
+        this.logger.addHandler(handler);
+		this.logger.setLevel(level);
+	}
+	
 	public String getVersion() {
 		return version;
 	}
 
+	/**
+	 * Set the version to use by the stub
+	 * @param version the version to use
+	 */
 	public void useVersion(String version) {
 		this.version = version;
 	}
@@ -643,7 +672,7 @@ public class TourismClient implements Cloneable {
 					"Relation should be either LINK_TERM_PARENT or LINK_TERM_CHILD");
 
 		if (!relation.equalsTerm(Term.LINK_TERM_PARENT)
-				&& relation.equalsTerm(Term.LINK_TERM_CHILD))
+				&& !relation.equalsTerm(Term.LINK_TERM_CHILD))
 			throw new InvalidValueException(
 					"Relation should be either LINK_TERM_PARENT or LINK_TERM_CHILD");
 	}

@@ -20,6 +20,9 @@
  */
 package citysdk.tourism.client.parser;
 
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
 import citysdk.tourism.client.exceptions.UnknownErrorException;
 import citysdk.tourism.client.poi.Deserializable;
 import citysdk.tourism.client.poi.lists.ListEvent;
@@ -176,6 +179,9 @@ public class JsonParser {
 		if (json == null)
 			return null;
 
+		Logger logger = LogManager.getLogManager().getLogger(Logger.GLOBAL_LOGGER_NAME);
+		logger.fine("Deserializing for " + clazz);
+		logger.finest("JSON is: " + json);
 		Deserializable deserialize;
 		GsonBuilder builder = new GsonBuilder();
 		builder.registerTypeAdapter(clazz, new POIDeserializer());
@@ -187,6 +193,7 @@ public class JsonParser {
 			throw new UnknownErrorException("There was an error handling the request: " + e.getMessage(), e);
 		}
 		
+		logger.fine("Done deserialization");
 		return deserialize;
 	}
 }

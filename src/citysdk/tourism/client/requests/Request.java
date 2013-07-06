@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import citysdk.tourism.client.exceptions.ServerErrorException;
 
@@ -49,6 +51,8 @@ public class Request {
 		httpUrl.connect();
 	
 		int code = httpUrl.getResponseCode();
+		Logger logger = LogManager.getLogManager().getLogger(Logger.GLOBAL_LOGGER_NAME);
+		logger.info("Queried " + Url + " with response code " + code);
 		if(code == 200) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
 			String inputLine;
@@ -58,9 +62,26 @@ public class Request {
 				answer += inputLine;
 	
 			in.close();
-			
+			httpUrl.disconnect();
+			logger.fine("Answer: " + answer);
 			return answer;
-		} else
-			throw new ServerErrorException(httpUrl.getResponseMessage());
+		} else {
+			String read, message = "";
+			logger.warning("Error code " + code);
+			try {
+				BufferedReader inStream = 
+						new BufferedReader(new InputStreamReader(httpUrl.getErrorStream()));
+				while ((read = inStream.readLine()) != null)
+					message += read;
+				
+				inStream.close();
+				httpUrl.disconnect();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			logger.severe("Error message " + message);
+			throw new ServerErrorException(message);
+		}
 	}
 }
