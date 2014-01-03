@@ -12,7 +12,7 @@ Documentation is available here: http://citysdk.ist.utl.pt/jdoc/index.html
 
 Developed By
 =================
-* Pedro Cruz - <pedro.cruz.sousa@gmail.com>
+* CitySDK - <citysdk-api@citysdk.ist.utl.pt>
 
 
 License
