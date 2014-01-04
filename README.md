@@ -14,7 +14,7 @@ Compiling
 =================  
 To compile, simply run:
 
-    mvn clean compile assembly:single
+    mvn clean package assembly:single
 
 Developed By
 =================
