@@ -22,11 +22,15 @@ package citysdk.tourism.client.requests;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.Inflater;
+import java.util.zip.InflaterInputStream;
 
 import citysdk.tourism.client.exceptions.ServerErrorException;
 
@@ -43,24 +47,38 @@ public class Request {
 	protected static String getResponse(String Url) throws IOException, ServerErrorException {
 		if(Url == null)
 			return null;
-		
+
 		URL url = new URL(Url);
 		HttpURLConnection httpUrl = (HttpURLConnection) url.openConnection();
 		httpUrl.setRequestMethod("GET");
 		httpUrl.setRequestProperty("Accept", "application/json");
+		httpUrl.setRequestProperty("Accept-Encoding", "gzip, deflate");
 		httpUrl.connect();
-	
+
 		int code = httpUrl.getResponseCode();
+		String encoding = httpUrl.getContentEncoding();
+		InputStream resultingInputStream = null;
+
 		Logger logger = LogManager.getLogManager().getLogger(Logger.GLOBAL_LOGGER_NAME);
 		logger.info("Queried " + Url + " with response code " + code);
 		if(code == 200) {
-			BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
+			if (encoding != null && encoding.equalsIgnoreCase("gzip")) {
+				resultingInputStream = new GZIPInputStream(httpUrl.getInputStream());
+			}
+			else if (encoding != null && encoding.equalsIgnoreCase("deflate")) {
+				resultingInputStream = new InflaterInputStream(httpUrl.getInputStream(), new Inflater(true));
+			}
+			else {
+				resultingInputStream = httpUrl.getInputStream();
+			}
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(resultingInputStream));
 			String inputLine;
 			String answer = "";
-	
+
 			while ((inputLine = in.readLine()) != null) 
 				answer += inputLine;
-	
+
 			in.close();
 			httpUrl.disconnect();
 			logger.fine("Answer: " + answer);
@@ -73,13 +91,13 @@ public class Request {
 						new BufferedReader(new InputStreamReader(httpUrl.getErrorStream()));
 				while ((read = inStream.readLine()) != null)
 					message += read;
-				
+
 				inStream.close();
 				httpUrl.disconnect();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			logger.severe("Error message " + message);
 			throw new ServerErrorException(message);
 		}
