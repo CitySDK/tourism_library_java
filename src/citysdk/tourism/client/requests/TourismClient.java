@@ -39,6 +39,7 @@ import citysdk.tourism.client.exceptions.ServerErrorException;
 import citysdk.tourism.client.exceptions.UnknownErrorException;
 import citysdk.tourism.client.exceptions.VersionNotAvailableException;
 import citysdk.tourism.client.parser.JsonParser;
+import citysdk.tourism.client.poi.base.GeometryHashMap;
 import citysdk.tourism.client.poi.lists.ListEvent;
 import citysdk.tourism.client.poi.lists.ListPOIS;
 import citysdk.tourism.client.poi.lists.ListPointOfInterest;
@@ -241,6 +242,7 @@ public class TourismClient implements Cloneable {
 			ResourceNotAllowedException, UnknownErrorException,
 			ServerErrorException, VersionNotAvailableException {
 		String url = validateAndBuildUrl(ResourceTerms.FIND_POI, parameterList);
+		GeometryHashMap.clearList();
 		parser.setJson(Request.getResponse(url));
 		return parser.parseJsonAsListOfPois();
 	}
@@ -273,6 +275,7 @@ public class TourismClient implements Cloneable {
 			ServerErrorException, VersionNotAvailableException {
 		String url = validateAndBuildUrl(ResourceTerms.FIND_EVENT,
 				parameterList);
+		GeometryHashMap.clearList();
 		parser.setJson(Request.getResponse(url));
 		return parser.parseJsonAsListOfEvents();
 	}
@@ -305,6 +308,7 @@ public class TourismClient implements Cloneable {
 			ServerErrorException, VersionNotAvailableException {
 		String url = validateAndBuildUrl(ResourceTerms.FIND_ROUTE,
 				parameterList);
+		GeometryHashMap.clearList();
 		parser.setJson(Request.getResponse(url));
 		return parser.parseJsonAsListOfRoutes();
 	}
@@ -418,6 +422,7 @@ public class TourismClient implements Cloneable {
 	public PointOfInterest getPoi(String poiBase, String poiId)
 			throws IOException, UnknownErrorException, ServerErrorException {
 		String url = poiBase + poiId;
+		GeometryHashMap.clearList();
 		parser.setJson(Request.getResponse(url));
 		return parser.parseJsonAsPointOfInterest();
 	}
@@ -442,6 +447,7 @@ public class TourismClient implements Cloneable {
 	public Event getEvent(String eventBase, String eventId) throws IOException,
 			UnknownErrorException, ServerErrorException {
 		String url = eventBase + eventId;
+		GeometryHashMap.clearList();
 		parser.setJson(Request.getResponse(url));
 		return parser.parseJsonAsEvent();
 	}
@@ -466,6 +472,7 @@ public class TourismClient implements Cloneable {
 	public Route getRoute(String routeBase, String routeId) throws IOException,
 			UnknownErrorException, ServerErrorException {
 		String url = routeBase + routeId;
+		GeometryHashMap.clearList();
 		parser.setJson(Request.getResponse(url));
 		return parser.parseJsonAsRoute();
 	}
@@ -489,6 +496,7 @@ public class TourismClient implements Cloneable {
 	public POI getGeneric(String base, String id) throws IOException,
 			UnknownErrorException, ServerErrorException {
 		String url = base + id;
+		GeometryHashMap.clearList();
 		parser.setJson(Request.getResponse(url));
 		return (POI) parser.parseJsonAsGeneric();
 	}

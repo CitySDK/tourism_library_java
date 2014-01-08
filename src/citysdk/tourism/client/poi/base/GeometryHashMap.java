@@ -13,10 +13,7 @@ public final class GeometryHashMap {
 		int key = getHash(posList);
 		if (!containsKey(key)) {
 			geometryInfo.put(key, posList);
-			//System.out.println("Adicionou GeometryHashMap Size:"+ geometryInfo.size());
-
 		}
-		//System.out.println("Poupou GeometryHashMap Size:"+ geometryInfo.size());
 		return key;
 	}
 	
