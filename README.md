@@ -10,9 +10,15 @@ Documentation
 =================
 Documentation is available here: http://citysdk.ist.utl.pt/jdoc/index.html
 
+Compiling
+=================  
+To compile, simply run:
+
+    mvn clean package assembly:single
+
 Developed By
 =================
-* Pedro Cruz - <pedro.cruz.sousa@gmail.com>
+* CitySDK - <citysdk-api@citysdk.ist.utl.pt>
 
 
 License
