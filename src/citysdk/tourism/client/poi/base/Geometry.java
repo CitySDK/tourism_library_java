@@ -31,7 +31,6 @@ package citysdk.tourism.client.poi.base;
  */
 public class Geometry {
 	private static final String srsName = "http://www.opengis.net/def/crs/EPSG/0/4326";
-	//private String posList;
 	private int posListKey;
 	
 	/**
@@ -40,7 +39,6 @@ public class Geometry {
 	 * @return postList the coordinates of the geometry.
 	 */
 	public String getPosList() {
-		//return posList;
 		return GeometryHashMap.getGeometry(posListKey);
 	}
 	
@@ -49,9 +47,7 @@ public class Geometry {
 	 * @param posList the list of coordinates. It should be in the form of <longitude latitude>.
 	 */
 	public void setPosList(String posList) {
-		//this.posList = posList;
 		posListKey = GeometryHashMap.addGeometry(posList);	
-		//System.out.println("Geometry Key: "+ posListKey);
 	}
 	
 	/**
