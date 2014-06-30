@@ -1,5 +1,5 @@
 /**
- * COPYRIGHT NOTICE: 
+ * COPYRIGHT NOTICE:
  *
  * This file is part of CitySDK WP5 Tourism Java Library.
  *
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with CitySDK WP5 Tourism Java Library. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Copyright 2013, IST
  */
 package citysdk.tourism.client.tests;
@@ -60,7 +60,7 @@ import citysdk.tourism.client.terms.Term;
 
 /**
  * Unit tests
- * 
+ *
  * @author Pedro Cruz
  *
  */
@@ -70,23 +70,23 @@ public class CitySdkTests {
 	private String categories[] = { "alojamento", "hoteis", "hostel", "motel", "musica" };
 	private Locale locale[] = { new Locale("pt", "PT"), new Locale("en", "GB") };
 	private String reader[][] = {
-			{ 
-			  "Awolnation",  
-			  "Awolnation ao vivo na TMN ao Vivo", 
+			{
+			  "Awolnation",
+			  "Awolnation ao vivo na TMN ao Vivo",
 			  "http://www1.sk-static.com/images/media/img/col6/20110322-001232-973681.jpg"
-			},	
-			{ 
-			  "Sigur Ros",  
-			  "Sigur Ros ao vivo no Campo Pequeno", 
+			},
+			{
+			  "Sigur Ros",
+			  "Sigur Ros ao vivo no Campo Pequeno",
 			  "http://www1.sk-static.com/images/media/img/col6/20120930-091715-168615.jpg"
-			},	
-			{ 
-			  "Mumford and Sons",  
-			  "Mumford and Sons ao vivo no Coliseu de Lisboa", 
+			},
+			{
+			  "Mumford and Sons",
+			  "Mumford and Sons ao vivo no Coliseu de Lisboa",
 			  "http://www2.sk-static.com/images/media/img/col6/20110613-051124-257858.jpg"
-			},	
+			},
 	};
-		
+
 	@Before
 	public void setUp() throws Exception {
 		client = TourismClientFactory.getInstance().getClient(homeUrl);
@@ -96,12 +96,12 @@ public class CitySdkTests {
 	@Test
 	public void testListEvent() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
 		Integer limit = 20, offset = 0;
-		
+
 		List<String> category = new ArrayList<String>();
 		category.add("Music");
-		category.add("Not’cias");
+		category.add("Noticias");
 		category.add("Stuff from Stuff");
-		
+
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));
 		params.add(new Parameter(ParameterTerms.TAG, "rock"));
@@ -115,19 +115,19 @@ public class CitySdkTests {
 			assertEquals(event.getBase() + "" + event.getId(), url + (id++));
 		}
 	}
-	
+
 	private boolean hasCategory(String category) {
 		for(int i = 0; i < this.categories.length; i++) {
 			if(this.categories[i].equals(category))
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	private void assertCategories(Category category) {
 		List<Category> categories;
-		
+
 		categories = category.getSubCategories();
 		for (Category cat : categories) {
 			Assert.assertTrue(hasCategory(DataReader.getLabel(cat, Term.LABEL_TERM_PRIMARY, new Locale("pt", "PT"))));
@@ -144,15 +144,15 @@ public class CitySdkTests {
 		Category categories = client.getCategories(list);
 		assertCategories(categories);
 	}
-	
+
 	@Test
 	public void testPoiWithId() throws InvalidParameterException, IOException, UnknownErrorException, ServerErrorException, ResourceNotAllowedException, VersionNotAvailableException, InvalidValueException {
 		Integer limit = 20, offset = 0;
-		
+
 		List<String> category = new ArrayList<String>();
 		category.add("Museum");
 		category.add("Garden");
-		
+
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));
 		params.add(new Parameter(ParameterTerms.TAG, "culture"));
@@ -167,21 +167,21 @@ public class CitySdkTests {
 			assertEquals(poi.getBase() + "" + poi.getId(), url + (id++));
 		}
 	}
-	
+
 	@Test
 	public void testAvailableLanguages() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
 		Integer limit = 20, offset = 0;
-		
+
 		List<String> category = new ArrayList<String>();
 		category.add("Museum");
 		category.add("Garden");
-		
+
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));
 		params.add(new Parameter(ParameterTerms.TAG, "culture"));
 		params.add(new Parameter(ParameterTerms.LIMIT, limit));
 		params.add(new Parameter(ParameterTerms.OFFSET, offset));
-		
+
 		ListPointOfInterest poiList = client.getPois(params);
 		List<PointOfInterest> pois = poiList.getPois();
 		for(PointOfInterest poi : pois) {
@@ -192,38 +192,38 @@ public class CitySdkTests {
 			}
 		}
 	}
-	
+
 	@Test
 	public void testDataReader() throws InvalidParameterException, IOException, ResourceNotAllowedException, UnknownErrorException, ServerErrorException, VersionNotAvailableException, InvalidValueException {
 		String label = null;
 	    String description = null;
 	    String thumbnail = null;
-	    
+
 	    Integer limit = 20, offset = 0;
-		
+
 		List<String> category = new ArrayList<String>();
 		category.add("Music");
 		category.add("Live");
-		
+
 		List<String> tag = new ArrayList<String>();
 		tag.add("rock");
 		tag.add("indie");
-		
+
 		ParameterList params = new ParameterList();
 		params.add(new Parameter(ParameterTerms.CATEGORY, category));
 		params.add(new Parameter(ParameterTerms.TAG, tag));
 		params.add(new Parameter(ParameterTerms.LIMIT, limit));
 		params.add(new Parameter(ParameterTerms.OFFSET, offset));
-		
+
 		ListEvent eventList = client.getEvents(params);
 		List<Event> events = eventList.getEvents();
-		
+
 	    DataReader.setDefaultLocale(new Locale("en","GB"));
 	    Locale locale = new Locale("pt", "PT");
 		int i = 0, j;
 		for(Event event : events) {
 			j = 0;
-			
+
 			label = DataReader.getLabel(event, Term.LABEL_TERM_PRIMARY, locale);
 	        description = DataReader.getDescription(event, locale);
 	        List<ImageContent> img = DataReader.getThumbnails(event);
@@ -232,7 +232,7 @@ public class CitySdkTests {
 	            imgContent = img.get(0);
 	            thumbnail = imgContent.getContent();
 	        }
-	                
+
 	        assertEquals(label, reader[i][j++]);
 	        assertEquals(description, reader[i][j++]);
 	        assertNotNull(imgContent);
@@ -241,13 +241,13 @@ public class CitySdkTests {
 	        assertEquals(thumbnail, reader[i++][j++]);
 		}
 	}
-	
+
 	@Test
 	public void testCode() throws IOException, UnknownErrorException, ServerErrorException, InvalidParameterException, InvalidValueException, InvalidParameterTermException, ResourceNotAllowedException, VersionNotAvailableException {
 		TourismClientFactory factory = TourismClientFactory.getInstance();
         TourismClient client = factory.getClient("http://tourism.citysdk.cm-lisboa.pt/resources");
         client.useVersion("1.0");
-     
+
         ListPOIS values = client.getByCode("www.parquedasnacoes.pt");
         ListPointOfInterest pois = values.getListPoi();
         assertEquals(DataReader.getCategories(pois.get(0), new Locale("pt", "PT")).size(), 5);
