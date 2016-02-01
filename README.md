@@ -4,7 +4,9 @@ citysdk-wp5-java
 This library provides the general methods written in Java to use the CitySDK Tourism API. 
 You can check the test-suite for a few usage examples.
 
-**See http://citysdk.ist.utl.pt/ for more information**
+**See http://tourism.citysdk.eu/ for more information**
+
+**There is a paper describing this effort http://link.springer.com/article/10.1186/s13174-015-0039-z**
 
 Documentation
 =================
